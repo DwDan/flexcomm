@@ -1,6 +1,6 @@
 ﻿namespace FC.Auth.Domain.Enums
 {
-    public enum UserRole
+    public enum PerfilUsuario
     {
         Client,
         Administrator

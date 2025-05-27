@@ -7,22 +7,22 @@ namespace FC.Auth.Domain.Entities
 {
     public class Usuario : Entity
     {
-        public string? Name { get; private set; }
+        public string? Nome { get; private set; }
         public string? Email { get; private set; }
-        public string? PasswordHash { get; private set; }
-        public bool Active { get; private set; }
-        public UserRole Role { get; private set; }
+        public string? SenhaHash { get; private set; }
+        public bool Ativo { get; private set; }
+        public PerfilUsuario Perfil { get; private set; }
 
         protected Usuario() { }
 
-        public Usuario(string name, string email, string passwordHash, UserRole role)
+        public Usuario(string nome, string email, string senhaHash, PerfilUsuario perfil)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            Nome = nome;
             Email = email;
-            PasswordHash = passwordHash;
-            Active = true;
-            Role = role;
+            SenhaHash = senhaHash;
+            Ativo = true;
+            Perfil = perfil;
         }
 
         public ValidationResult Validar() 

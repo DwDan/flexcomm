@@ -15,7 +15,7 @@ namespace FC.Auth.Domain.Validation
 
         public UsuarioValidation()
         {
-            RuleFor(user => user.Name)
+            RuleFor(user => user.Nome)
                 .NotEmpty().WithMessage(NomeObrigatorio)
                 .MinimumLength(3).WithMessage(NomeInvalido);
 
@@ -23,7 +23,7 @@ namespace FC.Auth.Domain.Validation
                 .NotEmpty().WithMessage(EmailObrigatorio)
                 .EmailAddress().WithMessage(EmailInvalido);
 
-            RuleFor(user => user.PasswordHash)
+            RuleFor(user => user.SenhaHash)
                 .NotEmpty().WithMessage(SenhaObrigatoria)
                 .MinimumLength(6).WithMessage(SenhaInvalida);
         }
