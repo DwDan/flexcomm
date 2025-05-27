@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Auth.Domain", "services\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Auth.Unit.Tests", "tests\unit\FC.Auth.Unit.Tests\FC.Auth.Unit.Tests.csproj", "{495764B3-463F-406D-BCE9-2B5887785E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Auth.Application", "services\auth\FC.Auth.Application\FC.Auth.Application.csproj", "{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{495764B3-463F-406D-BCE9-2B5887785E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{495764B3-463F-406D-BCE9-2B5887785E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{495764B3-463F-406D-BCE9-2B5887785E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{C0F4B577-9724-426B-9347-AE1CA3174DF4} = {323EAAC9-54B7-4375-A68A-AC8DBA3BA4B2}
 		{ACDC5583-3196-4901-AE1D-90298030C841} = {323EAAC9-54B7-4375-A68A-AC8DBA3BA4B2}
 		{495764B3-463F-406D-BCE9-2B5887785E4C} = {D04381B0-1B52-4C95-81E8-B638CD9F9CD4}
+		{D46B6361-EA2E-4C84-9CF5-FEE0B3D4C166} = {323EAAC9-54B7-4375-A68A-AC8DBA3BA4B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19B3AF10-641D-45D1-BF03-B43896FCC9F5}
