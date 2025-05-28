@@ -26,9 +26,9 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
             if (!result.IsValid)
                 throw new ValidationException(result.Errors);
 
-            await _repositorio.CriarAsync(usuario, cancellationToken);
+            _repositorio.Criar(usuario);
 
-            return await _repositorio.UnitOfWork.Commit();
+            return await _repositorio.UnitOfWork.CommitAsync(cancellationToken);
         }
     }
 }

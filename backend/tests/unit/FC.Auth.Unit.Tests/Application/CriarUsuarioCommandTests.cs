@@ -31,8 +31,8 @@ namespace FC.Auth.Unit.Tests.Application
             var usuario = new Usuario("teste", "teste@teste.com", "senhaHash", PerfilUsuario.Client);
 
             _mapper.Map<Usuario>(command).Returns(usuario);
-            _repositorio.CriarAsync(usuario, CancellationToken.None).Returns(Task.CompletedTask);
-            _repositorio.UnitOfWork.Commit().Returns(true);
+            _repositorio.Criar(usuario);
+            _repositorio.UnitOfWork.CommitAsync(CancellationToken.None).Returns(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -40,8 +40,8 @@ namespace FC.Auth.Unit.Tests.Application
             // Assert
             Assert.True(result);
             _mapper.Received(1).Map<Usuario>(command);
-            await _repositorio.Received(1).CriarAsync(usuario, CancellationToken.None);
-            await _repositorio.UnitOfWork.Received(1).Commit();
+            _repositorio.Received(1).Criar(usuario);
+            await _repositorio.UnitOfWork.Received(1).CommitAsync(CancellationToken.None);
         }
 
         [Fact(DisplayName = "Criar usuário inválido deve disparar exceção")]
@@ -68,8 +68,8 @@ namespace FC.Auth.Unit.Tests.Application
             Assert.Contains(UsuarioValidation.SenhaInvalida, result.Errors.Select(c => c.ErrorMessage));
 
             _mapper.Received(1).Map<Usuario>(command);
-            await _repositorio.DidNotReceiveWithAnyArgs().CriarAsync(usuario, CancellationToken.None);
-            await _repositorio.UnitOfWork.DidNotReceiveWithAnyArgs().Commit();
+            _repositorio.DidNotReceiveWithAnyArgs().Criar(usuario);
+            await _repositorio.UnitOfWork.DidNotReceiveWithAnyArgs().CommitAsync(CancellationToken.None);
         }
     }
 }
