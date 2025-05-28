@@ -5,7 +5,7 @@ using FluentValidation.Results;
 
 namespace FC.Auth.Domain.Entities
 {
-    public class Usuario : Entity
+    public class Usuario : Entity, IAggregateRoot
     {
         public string? Nome { get; private set; }
         public string? Email { get; private set; }
