@@ -67,8 +67,7 @@ jobs:
 
       - name: Run tests with longer timeout
         run: |
-            dotnet build ./backend/FlexComm.sln --configuration Release
-            dotnet test ./backend/FlexComm.sln --no-build --verbosity normal --logger trx --results-directory ./TestResults
+          dotnet test ./backend/FlexComm.sln --configuration Release --verbosity normal --logger trx --results-directory ./TestResults
   
   frontend-tests:
     name: Run Frontend Tests
