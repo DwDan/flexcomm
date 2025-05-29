@@ -1,6 +1,8 @@
 
 # Flexcomm
 
+![CI Pipeline](https://github.com/DwDan/flexcomm/actions/workflows/ci.yml/badge.svg)
+
 **Flexcomm** é um projeto de **E-Commerce flexível** para comercialização de **produtos e serviços**, desenvolvido com foco em **boas práticas de engenharia de software**.
 
 ---
