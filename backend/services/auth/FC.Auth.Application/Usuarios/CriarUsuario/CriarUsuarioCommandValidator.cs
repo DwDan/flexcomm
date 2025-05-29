@@ -1,0 +1,30 @@
+﻿using FluentValidation;
+
+namespace FC.Auth.Application.Usuarios.CriarUsuario
+{
+    public class CriarUsuarioCommandValidator : AbstractValidator<CriarUsuarioCommand>
+    {
+        public static string NomeObrigatorio => "O nome é obrigatório.";
+        public static string EmailObrigatorio => "O e-mail é obrigatório.";
+        public static string SenhaObrigatoria => "A senha é obrigatória.";
+
+        public static string NomeInvalido => "O nome deve ter no mínimo 3 caracteres.";
+        public static string EmailInvalido => "O e-mail é inválido.";
+        public static string SenhaInvalida => "A senha deve ter no mínimo 6 caracteres.";
+
+        public CriarUsuarioCommandValidator()
+        {
+            RuleFor(user => user.Nome)
+                .NotEmpty().WithMessage(NomeObrigatorio)
+                .MinimumLength(3).WithMessage(NomeInvalido);
+
+            RuleFor(user => user.Email)
+                .NotEmpty().WithMessage(EmailObrigatorio)
+                .EmailAddress().WithMessage(EmailInvalido);
+
+            RuleFor(user => user.Senha)
+                .NotEmpty().WithMessage(SenhaObrigatoria)
+                .MinimumLength(6).WithMessage(SenhaInvalida);
+        }
+    }
+}

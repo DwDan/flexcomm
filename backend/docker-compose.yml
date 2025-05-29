@@ -1,0 +1,30 @@
+services:
+  fc.auth.webapi:
+    container_name: fc_auth_webapi
+    image: ${DOCKER_REGISTRY-}fcauthwebapi
+    build:
+      context: ./Services/Auth
+      dockerfile: FC.Auth.WebApi/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - fc.auth.postgres
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  fc.auth.postgres:
+    container_name: fc_auth_postgres
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=DBSAuth_Dev
+      - POSTGRES_USER=db@user
+      - POSTGRES_PASSWORD=db@password
+    ports:
+      - "5432:5432"
+    restart: unless-stopped

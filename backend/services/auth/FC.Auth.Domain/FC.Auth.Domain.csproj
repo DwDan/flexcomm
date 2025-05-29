@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Domain\FC.BuildingBlocks.Domain.csproj" />
   </ItemGroup>
 
 </Project>
