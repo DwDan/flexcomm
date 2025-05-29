@@ -13,12 +13,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/auth/FC.Auth.WebAPI/FC.Auth.WebAPI.csproj", "services/auth/FC.Auth.WebAPI/"]
-COPY ["buildingblocks/FC.BuildingBlocks.Application/FC.BuildingBlocks.Application.csproj", "buildingblocks/FC.BuildingBlocks.Application/"]
-COPY ["buildingblocks/FC.BuildingBlocks.WebAPI/FC.BuildingBlocks.WebAPI.csproj", "buildingblocks/FC.BuildingBlocks.WebAPI/"]
-COPY ["services/auth/FC.Auth.Application/FC.Auth.Application.csproj", "services/auth/FC.Auth.Application/"]
-COPY ["services/auth/FC.Auth.Domain/FC.Auth.Domain.csproj", "services/auth/FC.Auth.Domain/"]
-COPY ["buildingblocks/FC.BuildingBlocks.Domain/FC.BuildingBlocks.Domain.csproj", "buildingblocks/FC.BuildingBlocks.Domain/"]
-COPY ["services/auth/FC.Auth.Infrastructure/FC.Auth.Infrastructure.csproj", "services/auth/FC.Auth.Infrastructure/"]
 RUN dotnet restore "./services/auth/FC.Auth.WebAPI/FC.Auth.WebAPI.csproj"
 COPY . .
 WORKDIR "/src/services/auth/FC.Auth.WebAPI"
