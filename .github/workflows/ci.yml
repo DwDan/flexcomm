@@ -66,8 +66,10 @@ jobs:
         run: dotnet build ./backend --no-restore --configuration Release
 
       - name: Run tests with longer timeout
-        run: dotnet test ./backend --no-build --verbosity normal --logger trx --results-directory ./TestResults
-
+        run: |
+            dotnet build ./backend/FlexComm.sln --configuration Release
+            dotnet test ./backend/FlexComm.sln --no-build --verbosity normal --logger trx --results-directory ./TestResults
+  
   frontend-tests:
     name: Run Frontend Tests
     runs-on: ubuntu-latest
