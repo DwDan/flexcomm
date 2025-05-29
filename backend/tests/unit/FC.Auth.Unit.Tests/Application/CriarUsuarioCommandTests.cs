@@ -12,18 +12,18 @@ namespace FC.Auth.Unit.Tests.Application
     public class CriarUsuarioCommandTests
     {
         private readonly CriarUsuarioCommandHandler _handler;
-        private readonly IUsuarioRepositorio _repositorio;
+        private readonly IUsuarioRepository _repositorio;
         private readonly IMapper _mapper;
 
         public CriarUsuarioCommandTests()
         {
-            _repositorio = Substitute.For<IUsuarioRepositorio>();
+            _repositorio = Substitute.For<IUsuarioRepository>();
             _mapper = Substitute.For<IMapper>();
             _handler = new CriarUsuarioCommandHandler(_repositorio, _mapper);
         }
 
         [Fact(DisplayName = "Criar usuário válido deve executar com sucesso")]
-        [Trait("Categoria", "Autenticação - Criar Usuario Command Handler")]
+        [Trait("Autenticação", "CriarUsuarioCommand")]
         public async Task CriarUsuario_Valido_DeveExecutarComSucesso()
         {
             // Arrange
@@ -31,7 +31,6 @@ namespace FC.Auth.Unit.Tests.Application
             var usuario = new Usuario("teste", "teste@teste.com", "senhaHash", PerfilUsuario.Client);
 
             _mapper.Map<Usuario>(command).Returns(usuario);
-            _repositorio.Criar(usuario);
             _repositorio.UnitOfWork.CommitAsync(CancellationToken.None).Returns(true);
 
             // Act
@@ -45,7 +44,7 @@ namespace FC.Auth.Unit.Tests.Application
         }
 
         [Fact(DisplayName = "Criar usuário inválido deve disparar exceção")]
-        [Trait("Categoria", "Autenticação - Criar Usuario Command Handler")]
+        [Trait("Autenticação", "CriarUsuarioCommand")]
         public async Task CriarUsuario_Invalido_DeveDispararExcecao()
         {
             // Arrange

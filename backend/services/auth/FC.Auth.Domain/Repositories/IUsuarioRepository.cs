@@ -3,7 +3,7 @@ using FC.BuildingBlocks.Domain;
 
 namespace FC.Auth.Domain.Repositories
 {
-    public interface IUsuarioRepositorio : IRepository<Usuario>
+    public interface IUsuarioRepository : IRepository<Usuario>
     {
         void Criar(Usuario usuario);
     }

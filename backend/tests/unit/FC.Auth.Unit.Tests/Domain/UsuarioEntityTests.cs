@@ -7,7 +7,7 @@ namespace FC.Auth.Unit.Tests.Domain
     public class UsuarioEntityTests
     {
         [Fact(DisplayName = "Cria usuário deve criar usuário ativo")]
-        [Trait("Categoria", "Autenticação")]
+        [Trait("Autenticação", "UsuarioEntity")]
         public void CriarUsuario_DeveCriar_UsuarioAtivo()
         {
             // Arrange
@@ -23,7 +23,7 @@ namespace FC.Auth.Unit.Tests.Domain
         }
 
         [Fact(DisplayName = "Cria usuário deve criar usuário válido")]
-        [Trait("Categoria", "Autenticação")]
+        [Trait("Autenticação", "UsuarioEntity")]
         public void CriarUsuario_DeveCriar_Valido()
         {
             // Arrange
@@ -37,7 +37,7 @@ namespace FC.Auth.Unit.Tests.Domain
         }
 
         [Fact(DisplayName = "Cria usuário deve criar usuário inválido")]
-        [Trait("Categoria", "Autenticação")]
+        [Trait("Autenticação", "UsuarioEntity")]
         public void CriarUsuario_DeveCriar_UsuarioInvalido()
         {
             // Arrange

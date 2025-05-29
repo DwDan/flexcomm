@@ -8,10 +8,10 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 {
     public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, bool>
     {
-        private readonly IUsuarioRepositorio _repositorio;
+        private readonly IUsuarioRepository _repositorio;
         private readonly IMapper _mapper;
 
-        public CriarUsuarioCommandHandler(IUsuarioRepositorio usuarioRepositorio, IMapper mapper)
+        public CriarUsuarioCommandHandler(IUsuarioRepository usuarioRepositorio, IMapper mapper)
         {
             _repositorio = usuarioRepositorio;
             _mapper = mapper;
