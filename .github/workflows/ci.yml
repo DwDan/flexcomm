@@ -14,8 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Validate Conventional Commit
+        if: github.event_name == 'pull_request'
         uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,9 +39,9 @@ jobs:
           echo "🔍 Validando referência a issue..."
           COMMIT_MSG=$(git log -1 --pretty=%B)
           echo "Mensagem: $COMMIT_MSG"
-              
-          ISSUE_PATTERN="#[0-9]\{1,\}"
-              
+
+          ISSUE_PATTERN="#[0-9]{1,}"
+
           if ! echo "$COMMIT_MSG" | grep -qE "$ISSUE_PATTERN"; then
             echo "❌ O commit deve referenciar uma issue no formato: #<número>"
             echo "➡️  Exemplo: feat(core): adiciona validação #123"
@@ -52,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -64,8 +65,8 @@ jobs:
       - name: Build
         run: dotnet build ./backend --no-restore --configuration Release
 
-      - name: Test
-        run: dotnet test ./backend --no-build --verbosity normal
+      - name: Run tests with longer timeout
+        run: dotnet test ./backend --no-build --verbosity normal --logger trx --results-directory ./TestResults
 
   frontend-tests:
     name: Run Frontend Tests
