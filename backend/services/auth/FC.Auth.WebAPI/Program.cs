@@ -6,6 +6,8 @@ using FC.BuildingBlocks.Application;
 using FC.BuildingBlocks.WebAPI;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using FC.BuildingBlocks.Infrastructure.Security;
+using FC.BuildingBlocks.Domain;
 
 namespace FC.Auth.WebAPI
 {
@@ -63,8 +65,10 @@ namespace FC.Auth.WebAPI
                 options.UseNpgsql(connectionString,
                 b => b.MigrationsAssembly("FC.Auth.Infrastructure")));
 
+            builder.Services.AddJwtAuthentication(builder.Configuration);
             builder.Services.AddScoped<DbContext>(provider => provider.GetRequiredService<AutenticacaoContext>());
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            builder.Services.AddScoped<IPasswordHash, BCryptPasswordHash>();
         }
 
         public static void ApplicationInitializer(WebApplicationBuilder builder)

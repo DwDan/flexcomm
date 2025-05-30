@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Domain\FC.BuildingBlocks.Domain.csproj" />
     <ProjectReference Include="..\FC.Auth.Domain\FC.Auth.Domain.csproj" />
   </ItemGroup>
 

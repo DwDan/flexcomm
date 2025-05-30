@@ -10,7 +10,8 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_UsuarioAtivo()
         {
             // Arrange
-            var user = new Usuario("João", "joao@teste.com", "hashed_password");
+            var user = new Usuario("João", "joao@teste.com");
+            user.DefinirSenhaCriptografada("hashed_password");
 
             // Act & Assert
             Assert.NotEqual(Guid.Empty, user.Id);
@@ -25,7 +26,8 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_Valido()
         {
             // Arrange
-            var user = new Usuario("João", "joao@teste.com", "hashed_password");
+            var user = new Usuario("João", "joao@teste.com");
+            user.DefinirSenhaCriptografada("$2hashed_password");
 
             // Act
             var result = user.Validar();
@@ -39,7 +41,8 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_UsuarioInvalido()
         {
             // Arrange
-            var user = new Usuario(string.Empty, string.Empty, string.Empty);
+            var user = new Usuario(string.Empty, string.Empty);
+            user.DefinirSenhaCriptografada(string.Empty);
 
             // Act
             var result = user.Validar();

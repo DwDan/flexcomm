@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Application\FC.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Infrastructure\FC.BuildingBlocks.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.WebAPI\FC.BuildingBlocks.WebAPI.csproj" />
     <ProjectReference Include="..\FC.Auth.Application\FC.Auth.Application.csproj" />
     <ProjectReference Include="..\FC.Auth.Infrastructure\FC.Auth.Infrastructure.csproj" />

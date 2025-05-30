@@ -13,18 +13,22 @@ namespace FC.Auth.Domain.Entities
 
         protected Usuario() { }
 
-        public Usuario(string nome, string email, string senhaHash)
+        public Usuario(string nome, string email)
         {
             Id = Guid.NewGuid();
             Nome = nome;
             Email = email;
-            SenhaHash = senhaHash;
             Ativo = true;
         }
 
         public ValidationResult Validar() 
         {
             return new UsuarioValidation().Validate(this);
+        }
+
+        public void DefinirSenhaCriptografada(string senhaCriptografada)
+        {
+            SenhaHash = senhaCriptografada;
         }
     }
 }
