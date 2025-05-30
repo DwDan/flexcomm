@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FC.Auth.Application.Usuarios.CriarUsuario;
 using FC.Auth.Domain.Entities;
-using FC.Auth.Domain.Enums;
 using FC.Auth.Domain.Repositories;
 using FC.Auth.Domain.Validation;
 using FluentValidation;
@@ -28,7 +27,7 @@ namespace FC.Auth.Unit.Tests.Application
         {
             // Arrange
             var command = new CriarUsuarioCommand();
-            var usuario = new Usuario("teste", "teste@teste.com", "senhaHash", PerfilUsuario.Client);
+            var usuario = new Usuario("teste", "teste@teste.com", "senhaHash");
 
             _mapper.Map<Usuario>(command).Returns(usuario);
             _repositorio.UnitOfWork.CommitAsync(CancellationToken.None).Returns(true);
@@ -49,7 +48,7 @@ namespace FC.Auth.Unit.Tests.Application
         {
             // Arrange
             var command = new CriarUsuarioCommand();
-            var usuario = new Usuario("", "", "", PerfilUsuario.Client);
+            var usuario = new Usuario("", "", "");
 
             _mapper.Map<Usuario>(command).Returns(usuario);
 

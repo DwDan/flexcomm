@@ -1,5 +1,4 @@
 ﻿using FC.Auth.Application.Usuarios.CriarUsuario;
-using FC.Auth.Domain.Enums;
 using FC.Auth.Domain.Validation;
 
 namespace FC.Auth.Unit.Tests.Application
@@ -16,7 +15,6 @@ namespace FC.Auth.Unit.Tests.Application
                 Nome = "João",
                 Email = "joao@teste.com",
                 Senha = "hashed_password",
-                Perfil = PerfilUsuario.Client
             };
 
             // Act
