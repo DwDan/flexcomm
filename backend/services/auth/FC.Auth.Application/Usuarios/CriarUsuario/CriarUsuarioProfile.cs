@@ -8,7 +8,7 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
         public CriarUsuarioProfile()
         {
             CreateMap<CriarUsuarioCommand, Usuario>()
-                .ConstructUsing(src => new Usuario(src.Nome, src.Email, src.Senha, src.Perfil));
+                .ConstructUsing(src => new Usuario(src.Nome, src.Email, src.Senha));
         }
     }
 }

@@ -16,9 +16,9 @@ namespace FC.Auth.Integration.Tests
             _client = fixture.Client;
         }
 
-        [Fact(DisplayName = "Criar usuário cliente válido deve executar com sucesso")]
+        [Fact(DisplayName = "Criar usuário válido deve executar com sucesso")]
         [Trait("Autenticação", "UsuarioController")]
-        public async void CriarUsuario_ClienteValido_DeveExecutarComSucesso()
+        public async void CriarUsuario_Valido_DeveExecutarComSucesso()
         {
             // Arrange
             var request = new CriarUsuarioRequest
@@ -35,9 +35,9 @@ namespace FC.Auth.Integration.Tests
             Assert.True(postResponse.IsSuccessStatusCode);
         }
 
-        [Fact(DisplayName = "Criar usuário cliente inválido deve executar com falha")]
+        [Fact(DisplayName = "Criar usuário inválido deve executar com falha")]
         [Trait("Autenticação", "UsuarioController")]
-        public async void CriarUsuario_ClienteInvalido_DeveExecutarComFalha()
+        public async void CriarUsuario_Invalido_DeveExecutarComFalha()
         {
             // Arrange
             var request = new CriarUsuarioRequest

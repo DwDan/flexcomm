@@ -39,11 +39,6 @@ namespace FC.Auth.Infrastructure.Configurations
                 .HasColumnName("ativo")
                 .HasColumnType("boolean")
                 .IsRequired();
-
-            builder.Property(u => u.Perfil)
-                .HasColumnName("perfil")
-                .HasColumnType("integer")
-                .IsRequired();
         }
     }
 }

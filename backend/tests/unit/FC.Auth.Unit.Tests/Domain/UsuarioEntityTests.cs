@@ -1,5 +1,4 @@
 ﻿using FC.Auth.Domain.Entities;
-using FC.Auth.Domain.Enums;
 using FC.Auth.Domain.Validation;
 
 namespace FC.Auth.Unit.Tests.Domain
@@ -11,14 +10,13 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_UsuarioAtivo()
         {
             // Arrange
-            var user = new Usuario("João", "joao@teste.com", "hashed_password", PerfilUsuario.Client);
+            var user = new Usuario("João", "joao@teste.com", "hashed_password");
 
             // Act & Assert
             Assert.NotEqual(Guid.Empty, user.Id);
             Assert.Equal("joao@teste.com", user.Email);
             Assert.Equal("João", user.Nome);
             Assert.Equal("hashed_password", user.SenhaHash);
-            Assert.Equal(PerfilUsuario.Client, user.Perfil);
             Assert.True(user.Ativo);
         }
 
@@ -27,7 +25,7 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_Valido()
         {
             // Arrange
-            var user = new Usuario("João", "joao@teste.com", "hashed_password", PerfilUsuario.Client);
+            var user = new Usuario("João", "joao@teste.com", "hashed_password");
 
             // Act
             var result = user.Validar();
@@ -41,7 +39,7 @@ namespace FC.Auth.Unit.Tests.Domain
         public void CriarUsuario_DeveCriar_UsuarioInvalido()
         {
             // Arrange
-            var user = new Usuario(string.Empty, string.Empty, string.Empty, PerfilUsuario.Client);
+            var user = new Usuario(string.Empty, string.Empty, string.Empty);
 
             // Act
             var result = user.Validar();
