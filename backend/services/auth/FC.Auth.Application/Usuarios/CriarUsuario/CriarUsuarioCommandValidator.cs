@@ -10,7 +10,11 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
         public static string NomeInvalido => "O nome deve ter no mínimo 3 caracteres.";
         public static string EmailInvalido => "O e-mail é inválido.";
-        public static string SenhaInvalida => "A senha deve ter no mínimo 6 caracteres.";
+        public static string SenhaTamanhoCaracteres => "A senha deve ter no máximo 20 caracteres.";
+        public static string SenhaLetraMaiuscula => "A senha deve conter pelo menos uma letra maiúscula.";
+        public static string SenhaLetraMinuscula => "A senha deve conter pelo menos uma letra minúscula.";
+        public static string SenhaNumero => "A senha deve conter pelo menos um número.";
+        public static string SenhaCaracter => "A senha deve conter pelo menos um caractere especial.";
 
         public CriarUsuarioCommandValidator()
         {
@@ -24,7 +28,11 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
             RuleFor(user => user.Senha)
                 .NotEmpty().WithMessage(SenhaObrigatoria)
-                .MinimumLength(6).WithMessage(SenhaInvalida);
+                .Must(senha => senha != null && senha.Length >= 8 && senha.Length <= 20).WithMessage(SenhaTamanhoCaracteres)
+                .Matches(@"[A-Z]").WithMessage(SenhaLetraMaiuscula)
+                .Matches(@"[a-z]").WithMessage(SenhaLetraMinuscula)
+                .Matches(@"\d").WithMessage(SenhaNumero)
+                .Matches(@"[!@#$%^&*(),.?""{}|<>]").WithMessage(SenhaCaracter);
         }
     }
 }

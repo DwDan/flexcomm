@@ -2,6 +2,7 @@
 using System.Text.Json;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.VisualStudio.Services.WebApi.Jwt;
 
 namespace FC.BuildingBlocks.WebAPI
 {
@@ -37,6 +38,11 @@ namespace FC.BuildingBlocks.WebAPI
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     response.Message = "Validation Failed";
                     response.Errors = validationEx.Errors.Select(error => (ValidationErrorDetail)error);
+                    break;
+
+                case InvalidCredentialsException invalidCredentialsEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    response.Message = invalidCredentialsEx.Message;
                     break;
 
                 case KeyNotFoundException keyNotFoundEx:

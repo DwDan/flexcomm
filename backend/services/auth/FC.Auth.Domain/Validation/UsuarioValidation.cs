@@ -11,7 +11,7 @@ namespace FC.Auth.Domain.Validation
 
         public static string NomeInvalido => "O nome deve ter no mínimo 3 caracteres.";
         public static string EmailInvalido => "O e-mail é inválido.";
-        public static string SenhaInvalida => "A senha deve ter no mínimo 6 caracteres.";
+        public static string SenhaInvalida => "A senha precisa estar criptografada.";
 
         public UsuarioValidation()
         {
@@ -25,7 +25,7 @@ namespace FC.Auth.Domain.Validation
 
             RuleFor(user => user.SenhaHash)
                 .NotEmpty().WithMessage(SenhaObrigatoria)
-                .MinimumLength(6).WithMessage(SenhaInvalida);
+                .Must(s => s.StartsWith("$2")).WithMessage(SenhaInvalida);
         }
     }
 }

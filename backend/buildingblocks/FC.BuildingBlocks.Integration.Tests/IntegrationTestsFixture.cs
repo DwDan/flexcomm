@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
@@ -56,6 +57,19 @@ namespace FC.BuildingBlocks.Integration.Tests
                             provider.GetRequiredService<TDbContext>());
                     });
                 });
+        }
+
+        public async Task CriarUsuarioTeste()
+        {
+            var request = new Dictionary<string, string>
+            {
+                { "Nome" , "usuario-teste" },
+                { "Email" , "usuario@teste.com.br" },
+                { "Senha" , "Usuario-Teste@123" }
+            };
+
+            var response = await Client.PostAsJsonAsync("api/usuario", request);
+            response.EnsureSuccessStatusCode();
         }
 
         private HttpClient CreateClient()

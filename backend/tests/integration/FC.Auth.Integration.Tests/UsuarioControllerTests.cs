@@ -25,7 +25,7 @@ namespace FC.Auth.Integration.Tests
             {
                 Nome = "teste",
                 Email = "teste@teste.com.br",
-                Senha = "senha@123"
+                Senha = "Teste@123"
             };
 
             // Act 
@@ -60,13 +60,17 @@ namespace FC.Auth.Integration.Tests
             });
 
             Assert.NotNull(result);
-            Assert.Equal(6, result!.Errors.Count());
+            Assert.Equal(10, result!.Errors.Count());
             Assert.Contains(CriarUsuarioCommandValidator.NomeObrigatorio, result.Errors.Select(e => e.Detail));
             Assert.Contains(CriarUsuarioCommandValidator.EmailObrigatorio, result.Errors.Select(e => e.Detail));
             Assert.Contains(CriarUsuarioCommandValidator.SenhaObrigatoria, result.Errors.Select(e => e.Detail));
             Assert.Contains(CriarUsuarioCommandValidator.NomeInvalido, result.Errors.Select(e => e.Detail));
             Assert.Contains(CriarUsuarioCommandValidator.EmailInvalido, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaInvalida, result.Errors.Select(e => e.Detail));
+            Assert.Contains(CriarUsuarioCommandValidator.SenhaTamanhoCaracteres, result.Errors.Select(e => e.Detail));
+            Assert.Contains(CriarUsuarioCommandValidator.SenhaLetraMaiuscula, result.Errors.Select(e => e.Detail));
+            Assert.Contains(CriarUsuarioCommandValidator.SenhaLetraMinuscula, result.Errors.Select(e => e.Detail));
+            Assert.Contains(CriarUsuarioCommandValidator.SenhaNumero, result.Errors.Select(e => e.Detail));
+            Assert.Contains(CriarUsuarioCommandValidator.SenhaCaracter, result.Errors.Select(e => e.Detail));
         }
     }
 }
