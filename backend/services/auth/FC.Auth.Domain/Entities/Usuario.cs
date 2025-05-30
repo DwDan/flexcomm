@@ -1,10 +1,11 @@
 ﻿using FC.Auth.Domain.Validation;
 using FC.BuildingBlocks.Domain;
+using FC.BuildingBlocks.Domain.Security;
 using FluentValidation.Results;
 
 namespace FC.Auth.Domain.Entities
 {
-    public class Usuario : Entity, IAggregateRoot
+    public class Usuario : Entity, IUsuario, IAggregateRoot
     {
         public string? Nome { get; private set; }
         public string? Email { get; private set; }
