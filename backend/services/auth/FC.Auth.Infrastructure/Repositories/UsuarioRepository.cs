@@ -21,11 +21,23 @@ namespace FC.Auth.Infrastructure.Repositories
             _context.Add(usuario);
         }
 
+        public void Alterar(Usuario usuario)
+        {
+            _context.Update(usuario);
+        }
+
         public async Task<Usuario?> ObterPorEmailAsync(string email, CancellationToken cancellationToken)
         {
             return await _context.Usuarios
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        }
+
+        public async Task<Usuario?> ObterPorIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.Usuarios
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
 
         public void Dispose()
