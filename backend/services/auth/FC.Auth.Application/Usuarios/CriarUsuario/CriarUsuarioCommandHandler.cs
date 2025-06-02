@@ -28,7 +28,7 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
             var senhaCriptografada = _passwordHasher.HashPassword(request.Senha);
             usuario.DefinirSenhaCriptografada(senhaCriptografada);
 
-            var result = usuario.Validar();
+            var result = usuario.ValidarCriacao();
 
             if (!result.IsValid)
                 throw new ValidationException(result.Errors);

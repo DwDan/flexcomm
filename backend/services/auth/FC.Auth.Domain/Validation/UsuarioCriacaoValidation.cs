@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FC.Auth.Domain.Validation
 {
-    public class UsuarioValidation : AbstractValidator<Usuario>
+    public class UsuarioCriacaoValidation : AbstractValidator<Usuario>
     {
         public static string NomeObrigatorio => "O nome é obrigatório.";
         public static string EmailObrigatorio => "O e-mail é obrigatório.";
@@ -13,9 +13,9 @@ namespace FC.Auth.Domain.Validation
         public static string EmailInvalido => "O e-mail é inválido.";
         public static string SenhaInvalida => "A senha precisa estar criptografada.";
 
-        public UsuarioValidation()
+        public UsuarioCriacaoValidation()
         {
-            RuleFor(user => user.Nome)
+            RuleFor(user => user.NomeCompleto.PrimeiroNome)
                 .NotEmpty().WithMessage(NomeObrigatorio)
                 .MinimumLength(3).WithMessage(NomeInvalido);
 
