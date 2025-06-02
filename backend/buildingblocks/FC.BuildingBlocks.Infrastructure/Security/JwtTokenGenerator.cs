@@ -28,7 +28,7 @@ namespace FC.BuildingBlocks.Infrastructure.Security
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Nome)
+                new Claim(ClaimTypes.Name, user.Email)
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
