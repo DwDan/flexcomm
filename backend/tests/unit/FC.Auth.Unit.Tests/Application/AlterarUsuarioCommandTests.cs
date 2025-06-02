@@ -1,4 +1,5 @@
 ﻿using FC.Auth.Application.Usuarios.AlterarUsuario;
+using FC.Auth.Application.Usuarios.AlterarUsuario.DTO;
 using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
 using FC.Auth.Domain.Validation;
@@ -27,7 +28,7 @@ namespace FC.Auth.Unit.Tests.Application
             var command = new AlterarUsuarioCommand() 
             { 
                 Id = usuario.Id, 
-                Endereco = new AlterarUsuarioEndereco() 
+                Endereco = new AlterarUsuarioEnderecoDto() 
                 { 
                     Bairro = "Bairro Teste",
                     Cidade = "Cidade Teste",
@@ -36,12 +37,12 @@ namespace FC.Auth.Unit.Tests.Application
                     Logradouro = "Logradouro Teste",
                     Cep = "12345-678"
                 },
-                NomeCompleto = new AlterarUsuarioNomeCompleto() 
+                NomeCompleto = new AlterarUsuarioNomeCompletoDto() 
                 { 
                     PrimeiroNome = "Primeiro Nome Teste", 
                     UltimoNome = "Ultimo Nome Teste"
                 },
-                Telefone = new AlterarUsuarioNumeroTelefone() 
+                Telefone = new AlterarUsuarioNumeroTelefoneDto() 
                 { 
                     Ddd = "11", 
                     Numero = "987654321"
@@ -69,9 +70,9 @@ namespace FC.Auth.Unit.Tests.Application
             var command = new AlterarUsuarioCommand() 
             { 
                 Id = usuario.Id, 
-                Endereco = new AlterarUsuarioEndereco(),
-                NomeCompleto = new AlterarUsuarioNomeCompleto(),
-                Telefone = new AlterarUsuarioNumeroTelefone()
+                Endereco = new AlterarUsuarioEnderecoDto(),
+                NomeCompleto = new AlterarUsuarioNomeCompletoDto(),
+                Telefone = new AlterarUsuarioNumeroTelefoneDto()
             };
 
             // Act & Assert

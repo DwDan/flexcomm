@@ -1,6 +1,6 @@
-﻿namespace FC.Auth.Application.Usuarios.AlterarUsuario
+﻿namespace FC.Auth.Application.Usuarios.AlterarUsuario.DTO
 {
-    public class AlterarUsuarioEndereco
+    public class AlterarUsuarioEnderecoDto
     {
         public string Logradouro { get; set; } = string.Empty;
         public string Numero { get; set; } = string.Empty;
