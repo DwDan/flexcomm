@@ -61,6 +61,11 @@ namespace FC.BuildingBlocks.WebAPI
                     response.Message = persistenceEx.Message;
                     break;
 
+                case BusinessException businessEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Message = businessEx.Message;
+                    break;
+
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     response.Message = "An unexpected error occurred.";
