@@ -67,11 +67,6 @@ namespace FC.BuildingBlocks.Integration.Tests
             return await _usuarioTestHelper.RealizarAutenticacaoAsync();
         }
 
-        public async Task<Guid> CriarUsuarioTeste()
-        {
-            return await _usuarioTestHelper.CriarUsuarioTeste();
-        }
-
         private HttpClient CreateClient()
         {
             return Factory.CreateClient(new WebApplicationFactoryClientOptions

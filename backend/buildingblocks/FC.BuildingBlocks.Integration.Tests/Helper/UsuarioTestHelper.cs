@@ -27,18 +27,6 @@ namespace FC.BuildingBlocks.Integration.Tests.Helper
             return usuarioId;
         }
 
-        public async Task<Guid> CriarUsuarioTeste()
-        {
-            var usuario = new Dictionary<string, string>
-            {
-                { "Nome", "Usuario-Teste" },
-                { "Email", "usuario@teste.com.br" },
-                { "Senha", "Usuario-Teste@123" }
-            };
-
-            return await CriarUsuarioTeste(usuario);
-        }
-
         private async Task<Guid> CriarUsuarioTeste(Dictionary<string, string> request)
         {
             var response = await _client.PostAsJsonAsync("api/usuario", request);
