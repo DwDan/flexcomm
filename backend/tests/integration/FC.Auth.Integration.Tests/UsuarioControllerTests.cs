@@ -160,5 +160,26 @@ namespace FC.Auth.Integration.Tests
             Assert.Contains(AlterarUsuarioCommandValidator.NumeroTelefoneObrigatorio, result.Errors.Select(c => c.Detail));
             Assert.Contains(AlterarUsuarioCommandValidator.NumeroTelefoneInvalido, result.Errors.Select(c => c.Detail));
         }
+
+        [Fact(DisplayName = "Criar usuário com email duplicado deve executar com falha")]
+        [Trait("Autenticação", "UsuarioController")]
+        public async void CriarUsuario_ComEmailDuplicado_DeveExecutarComFalha()
+        {
+            // Arrange
+            var request = new CriarUsuarioRequest
+            {
+                Nome = "teste",
+                Email = "teste2@teste.com.br",
+                Senha = "Teste@123"
+            };
+
+            // Act 
+            var postResponse = await _client.PostAsJsonAsync("api/usuario", request);
+            var postResponse2 = await _client.PostAsJsonAsync("api/usuario", request);
+
+            // Assert
+            Assert.True(postResponse.IsSuccessStatusCode);
+            Assert.False(postResponse2.IsSuccessStatusCode);
+        }
     }
 }

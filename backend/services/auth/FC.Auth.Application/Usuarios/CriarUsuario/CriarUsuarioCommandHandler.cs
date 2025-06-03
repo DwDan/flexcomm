@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
+using FC.BuildingBlocks.Core.Exception;
 using FC.BuildingBlocks.Domain;
 using FluentValidation;
 using MediatR;
@@ -24,6 +25,10 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
         public async Task<Guid> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
         {
+            var usuarioExistente = await _repositorio.ObterPorEmailAsync(request.Email, cancellationToken);
+            if(usuarioExistente is not null)
+                throw new BusinessException($"Já existe um usuário cadastrado com o e-mail {request.Email}.");
+
             var usuario = _mapper.Map<Usuario>(request);
             var senhaCriptografada = _passwordHasher.HashPassword(request.Senha);
             usuario.DefinirSenhaCriptografada(senhaCriptografada);
