@@ -7,7 +7,7 @@ using MediatR;
 
 namespace FC.Auth.Application.Usuarios.CriarUsuario
 {
-    public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, bool>
+    public class CriarUsuarioCommandHandler : IRequestHandler<CriarUsuarioCommand, Guid>
     {
         private readonly IUsuarioRepository _repositorio;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<bool> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
         {
             var usuario = _mapper.Map<Usuario>(request);
             var senhaCriptografada = _passwordHasher.HashPassword(request.Senha);
@@ -35,7 +35,9 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
             _repositorio.Criar(usuario);
 
-            return await _repositorio.UnitOfWork.CommitAsync(cancellationToken);
+            await _repositorio.UnitOfWork.CommitAsync(cancellationToken);
+
+            return usuario.Id;
         }
     }
 }

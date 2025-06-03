@@ -1,4 +1,5 @@
 ﻿using FC.Auth.Domain.Repositories;
+using FC.BuildingBlocks.Core.Exception;
 using FluentValidation;
 using MediatR;
 
@@ -17,7 +18,7 @@ namespace FC.Auth.Application.Usuarios.AlterarUsuario
         {
             var usuario = await _repositorio.ObterPorIdAsync(request.Id, cancellationToken);
             if (usuario == null)
-                throw new KeyNotFoundException("Usuário não encontrado.");
+                throw new BadRequestException("Usuário não encontrado.");
 
             usuario.DefinirNomeCompleto(request.NomeCompleto.PrimeiroNome, request.NomeCompleto.UltimoNome);
 

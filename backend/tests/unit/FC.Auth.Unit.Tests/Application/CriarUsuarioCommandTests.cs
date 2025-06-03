@@ -42,7 +42,7 @@ namespace FC.Auth.Unit.Tests.Application
             var result = await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            Assert.True(result);
+            Assert.NotEqual(Guid.Empty, result);
             _mapper.Received(1).Map<Usuario>(command);
             _repositorio.Received(1).Criar(usuario);
             _passwordHash.Received(1).HashPassword(senhaSimples);

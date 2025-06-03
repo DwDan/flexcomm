@@ -2,7 +2,7 @@
 
 namespace FC.Auth.Application.Usuarios.CriarUsuario
 {
-    public class CriarUsuarioCommand : IRequest<bool>
+    public class CriarUsuarioCommand : IRequest<Guid>
     {
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
