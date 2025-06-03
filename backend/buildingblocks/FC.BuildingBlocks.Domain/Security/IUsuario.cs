@@ -3,6 +3,6 @@
     public interface IUsuario
     {
         public Guid Id { get; }
-        public string Nome { get; }
+        public string Email { get; }
     }
 }

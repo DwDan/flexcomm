@@ -42,7 +42,7 @@ namespace FC.Auth.Unit.Tests.Application
             var result = await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            Assert.True(result);
+            Assert.NotEqual(Guid.Empty, result);
             _mapper.Received(1).Map<Usuario>(command);
             _repositorio.Received(1).Criar(usuario);
             _passwordHash.Received(1).HashPassword(senhaSimples);
@@ -64,13 +64,13 @@ namespace FC.Auth.Unit.Tests.Application
                 async () => await _handler.Handle(command, CancellationToken.None));
 
             Assert.Equal(6, result.Errors.Count());
-            Assert.Contains(UsuarioValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioValidation.EmailObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioValidation.SenhaObrigatoria, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.EmailObrigatorio, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.SenhaObrigatoria, result.Errors.Select(c => c.ErrorMessage));
 
-            Assert.Contains(UsuarioValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioValidation.EmailInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioValidation.SenhaInvalida, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.EmailInvalido, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.SenhaInvalida, result.Errors.Select(c => c.ErrorMessage));
 
             _mapper.Received(1).Map<Usuario>(command);
             _repositorio.DidNotReceiveWithAnyArgs().Criar(usuario);

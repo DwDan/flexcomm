@@ -72,20 +72,11 @@ namespace FC.Auth.Integration.Tests
         [Trait("Autenticação", "LoginController")]
         public async void Login_CredencialValida_DeveRetornarStatusSucesso()
         {
-            // Arrange
-            await _fixture.CriarUsuarioTeste();
-
-            var request = new LoginRequest
-            {
-                Email = "usuario@teste.com.br",
-                Senha = "Usuario-Teste@123"
-            };
-
-            // Act 
-            var postResponse = await _fixture.Client.PostAsJsonAsync("api/autenticacao/login", request);
+            // Arrange & Act 
+            var usuarioId = await _fixture.RealizarAutenticacaoAsync();
 
             // Assert
-            Assert.True(postResponse.IsSuccessStatusCode);
+            Assert.NotEqual(Guid.Empty, usuarioId);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Json;
+﻿using FC.BuildingBlocks.Integration.Tests.Helper;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,11 +15,14 @@ namespace FC.BuildingBlocks.Integration.Tests
 
         private readonly PostgreSqlContainer _dbContainer;
 
+        private readonly UsuarioTestHelper _usuarioTestHelper;
+
         public IntegrationTestsFixture(string migrationsAssembly)
         {
             _dbContainer = StartContainer();
             Factory = ConfigureFactory(migrationsAssembly);
             Client = CreateClient();
+            _usuarioTestHelper = new UsuarioTestHelper(Client);
             InitializeDatabase();
         }
 
@@ -59,17 +62,9 @@ namespace FC.BuildingBlocks.Integration.Tests
                 });
         }
 
-        public async Task CriarUsuarioTeste()
+        public async Task<Guid> RealizarAutenticacaoAsync()
         {
-            var request = new Dictionary<string, string>
-            {
-                { "Nome" , "usuario-teste" },
-                { "Email" , "usuario@teste.com.br" },
-                { "Senha" , "Usuario-Teste@123" }
-            };
-
-            var response = await Client.PostAsJsonAsync("api/usuario", request);
-            response.EnsureSuccessStatusCode();
+            return await _usuarioTestHelper.RealizarAutenticacaoAsync();
         }
 
         private HttpClient CreateClient()

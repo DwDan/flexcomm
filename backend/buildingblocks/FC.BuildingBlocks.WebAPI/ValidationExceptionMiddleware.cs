@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using FC.BuildingBlocks.Core.Exception;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.VisualStudio.Services.WebApi.Jwt;
@@ -45,9 +46,19 @@ namespace FC.BuildingBlocks.WebAPI
                     response.Message = invalidCredentialsEx.Message;
                     break;
 
-                case KeyNotFoundException keyNotFoundEx:
+                case NotFoundException notFoundEx:
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    response.Message = keyNotFoundEx.Message;
+                    response.Message = notFoundEx.Message;
+                    break;
+
+                case BadRequestException badRequestEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Message = badRequestEx.Message;
+                    break;
+
+                case PersistenceException persistenceEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    response.Message = persistenceEx.Message;
                     break;
 
                 default:

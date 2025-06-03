@@ -26,7 +26,7 @@ namespace FC.BuildingBlocks.Unit.Tests
             var user = Substitute.For<IUsuario>();
             var id = Guid.NewGuid();
             user.Id.Returns(id);
-            user.Nome.Returns("teste");
+            user.Email.Returns("teste@teste.com");
 
             // Act
             var token = tokenGenerator.GenerateToken(user);
@@ -45,7 +45,7 @@ namespace FC.BuildingBlocks.Unit.Tests
             }, out _);
 
             Assert.Equal(id.ToString(), principal.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            Assert.Equal("teste", principal.FindFirst(ClaimTypes.Name)?.Value);
+            Assert.Equal("teste@teste.com", principal.FindFirst(ClaimTypes.Name)?.Value);
         }
     }
 }
