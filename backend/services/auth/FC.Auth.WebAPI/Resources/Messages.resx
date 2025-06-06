@@ -216,4 +216,7 @@
   <data name="CriarUsuario.SenhaInvalida" xml:space="preserve">
     <value>A senha precisa estar criptografada.</value>
   </data>
+  <data name="AlterarUsuario.IdObrigatorio" xml:space="preserve">
+    <value>O id do usuário é obrigatório.</value>
+  </data>
 </root>

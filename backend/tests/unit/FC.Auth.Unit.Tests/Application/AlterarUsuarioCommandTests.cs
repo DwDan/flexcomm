@@ -2,7 +2,6 @@
 using FC.Auth.Application.Usuarios.AlterarUsuario.DTO;
 using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
-using FC.Auth.Domain.Validation;
 using FluentValidation;
 using NSubstitute;
 

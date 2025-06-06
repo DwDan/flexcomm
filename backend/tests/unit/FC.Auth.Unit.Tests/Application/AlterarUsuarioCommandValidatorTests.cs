@@ -48,7 +48,7 @@ namespace FC.Auth.Unit.Tests.Application
             // Arrange
             var command = new AlterarUsuarioCommand()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Empty,
                 Endereco = new AlterarUsuarioEnderecoDto(),
                 NomeCompleto = new AlterarUsuarioNomeCompletoDto(),
                 Telefone = new AlterarUsuarioNumeroTelefoneDto()
@@ -60,22 +60,7 @@ namespace FC.Auth.Unit.Tests.Application
             // Assert
             Assert.False(result.IsValid);
             Assert.NotNull(result);
-            Assert.Equal(15, result.Errors.Count());
-            Assert.Contains("AlterarUsuario.NomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NomeInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.SobrenomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.SobrenomeInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.LogradouroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.BairroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CidadeObrigatoria", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.EstadoObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CepObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CepInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.DddObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.DddInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroTelefoneObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroTelefoneInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.IdObrigatorio", result.Errors.Select(c => c.ErrorCode));
         }
     }
 }

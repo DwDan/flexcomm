@@ -124,6 +124,15 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O id do usuário é obrigatório..
+        /// </summary>
+        public static string AlterarUsuario_IdObrigatorio {
+            get {
+                return ResourceManager.GetString("AlterarUsuario.IdObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O logradouro é obrigatório..
         /// </summary>
         public static string AlterarUsuario_LogradouroObrigatorio {

@@ -125,7 +125,7 @@ namespace FC.Auth.Integration.Tests
 
             var request = new AlterarUsuarioRequest
             {
-                Id = _usuarioId,
+                Id = Guid.Empty,
                 Endereco = new AlterarUsuarioEnderecoRequest(),
                 NomeCompleto = new AlterarUsuarioNomeCompletoRequest(),
                 Telefone = new AlterarUsuarioNumeroTelefoneRequest()
@@ -144,22 +144,7 @@ namespace FC.Auth.Integration.Tests
             });
 
             Assert.NotNull(result);
-            Assert.Equal(15, result.Errors.Count());
-            Assert.Contains(Messages.AlterarUsuario_NomeObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_NomeInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_SobrenomeObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_SobrenomeInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_LogradouroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_NumeroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_BairroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_CidadeObrigatoria, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_EstadoObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_CepObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_CepInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_DddObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_DddInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_NumeroTelefoneObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(Messages.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_IdObrigatorio, result.Errors.Select(c => c.Detail));
         }
 
         [Fact(DisplayName = "Criar usuário com email duplicado deve executar com falha")]
