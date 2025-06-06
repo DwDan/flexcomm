@@ -42,16 +42,16 @@ namespace FC.Auth.Unit.Tests.Application
             Assert.False(result.IsValid);
             Assert.NotNull(result);
             Assert.Equal(10, result!.Errors.Count());
-            Assert.Contains("CriarUsuario.NomeObrigatorio", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.EmailObrigatorio", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaObrigatoria", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.NomeInvalido", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.EmailInvalido", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaTamanhoCaracteres", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaLetraMaiuscula", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaLetraMinuscula", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaNumero", result.Errors.Select(e => e.ErrorCode));
-            Assert.Contains("CriarUsuario.SenhaCaracter", result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_NomeObrigatorio, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_EmailObrigatorio, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaObrigatoria, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_NomeInvalido, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_EmailInvalido, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaTamanhoCaracteres, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaLetraMaiuscula, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaLetraMinuscula, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaNumero, result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains(CriarUsuarioCommandValidator.CriarUsuario_SenhaCaracter, result.Errors.Select(e => e.ErrorCode));
         }
     }
 }

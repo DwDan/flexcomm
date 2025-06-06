@@ -60,7 +60,7 @@ namespace FC.Auth.Unit.Tests.Application
             // Assert
             Assert.False(result.IsValid);
             Assert.NotNull(result);
-            Assert.Contains("AlterarUsuario.IdObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(AlterarUsuarioCommandValidator.AlterarUsuario_IdObrigatorio, result.Errors.Select(c => c.ErrorCode));
         }
     }
 }

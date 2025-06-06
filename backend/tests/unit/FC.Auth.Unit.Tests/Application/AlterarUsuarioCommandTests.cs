@@ -2,6 +2,7 @@
 using FC.Auth.Application.Usuarios.AlterarUsuario.DTO;
 using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
+using FC.Auth.Domain.Validation;
 using FluentValidation;
 using NSubstitute;
 
@@ -82,21 +83,21 @@ namespace FC.Auth.Unit.Tests.Application
                 async () => await _handler.Handle(command, CancellationToken.None));
 
             Assert.Equal(15, result.Errors.Count());
-            Assert.Contains("AlterarUsuario.NomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NomeInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.SobrenomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.SobrenomeInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.LogradouroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.BairroObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CidadeObrigatoria", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.EstadoObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CepObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.CepInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.DddObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.DddInvalido", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroTelefoneObrigatorio", result.Errors.Select(c => c.ErrorCode));
-            Assert.Contains("AlterarUsuario.NumeroTelefoneInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_SobrenomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_SobrenomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_LogradouroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_BairroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CidadeObrigatoria, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_EstadoObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CepObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CepInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_DddObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_DddInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorCode));
 
             _repositorio.DidNotReceiveWithAnyArgs().Alterar(usuario);
             await _repositorio.UnitOfWork.DidNotReceiveWithAnyArgs().CommitAsync(CancellationToken.None);
