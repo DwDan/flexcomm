@@ -2,8 +2,8 @@
 
 public class BusinessException : System.Exception
 {
-    public BusinessException(string message) : base(message) { }
+    public BusinessException(string errorCode) : base(errorCode) { }
 
-    public BusinessException(string message, System.Exception innerException)
-        : base(message, innerException) { }
+    public BusinessException(string errorCode, System.Exception innerException)
+        : base(errorCode, innerException) { }
 }

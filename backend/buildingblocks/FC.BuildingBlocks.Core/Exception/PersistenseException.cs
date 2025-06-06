@@ -4,10 +4,10 @@
     {
         public PersistenceException() { }
 
-        public PersistenceException(string message)
-            : base(message) { }
+        public PersistenceException(string errorCode)
+            : base(errorCode) { }
 
-        public PersistenceException(string message, System.Exception innerException)
-            : base(message, innerException) { }
+        public PersistenceException(string errorCode, System.Exception innerException)
+            : base(errorCode, innerException) { }
     }
 }
