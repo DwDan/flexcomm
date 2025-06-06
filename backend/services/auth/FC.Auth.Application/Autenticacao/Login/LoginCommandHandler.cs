@@ -28,7 +28,7 @@ namespace FC.Auth.Application.Autenticacao.Login
             var user = await _repositorio.ObterPorEmailAsync(request.Email, cancellationToken);
 
             if (user == null || !_passwordHasher.Verify(request.Senha, user.SenhaHash))
-                throw new InvalidCredentialsException(LoginErrors.CredenciaisInvalidas);
+                throw new InvalidCredentialsException("Login.CredenciaisInvalidas");
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 

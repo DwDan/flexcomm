@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
-using FC.Auth.Application.Autenticacao.Login;
 using FC.Auth.WebAPI.Feature.Autenticacao.Login;
+using FC.Auth.WebAPI.Resources;
 using FC.BuildingBlocks.WebAPI;
 
 namespace FC.Auth.Integration.Tests
@@ -37,8 +37,8 @@ namespace FC.Auth.Integration.Tests
 
             Assert.NotNull(result);
             Assert.Equal(2, result!.Errors.Count());
-            Assert.Contains(LoginErrors.EmailObrigatorio, result.Errors.Select(e => e.Detail));
-            Assert.Contains(LoginErrors.SenhaObrigatoria, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.Login_EmailObrigatorio, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.Login_SenhaObrigatoria, result.Errors.Select(e => e.Detail));
         }
 
         [Fact(DisplayName = "Login com credencial inválida deve retornar status não autorizado")]
@@ -65,7 +65,7 @@ namespace FC.Auth.Integration.Tests
             });
 
             Assert.NotNull(result);
-            Assert.Contains(LoginErrors.CredenciaisInvalidas, result.Message);
+            Assert.Contains(Messages.Login_CredenciaisInvalidas, result.Message);
         }
 
         [Fact(DisplayName = "Login com credencial válida deve retornar status sucesso")]

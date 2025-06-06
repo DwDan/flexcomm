@@ -10,10 +10,12 @@ namespace FC.BuildingBlocks.WebAPI
     public class ValidationExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly Func<string, string> _localize;
 
-        public ValidationExceptionMiddleware(RequestDelegate next)
+        public ValidationExceptionMiddleware(RequestDelegate next, Func<string, string>? localize = null)
         {
             _next = next;
+            _localize = localize ?? (code => code); 
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -28,7 +30,7 @@ namespace FC.BuildingBlocks.WebAPI
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
             var response = new ApiResponse { Success = false };
@@ -37,38 +39,42 @@ namespace FC.BuildingBlocks.WebAPI
             {
                 case ValidationException validationEx:
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response.Message = "Validation Failed";
-                    response.Errors = validationEx.Errors.Select(error => (ValidationErrorDetail)error);
+                    response.Message = _localize("Error.ValidationFailed");
+                    response.Errors = validationEx.Errors.Select(error => new ValidationErrorDetail
+                    {
+                        Error = error.ErrorCode,
+                        Detail = _localize(error.ErrorCode)
+                    });
                     break;
 
                 case InvalidCredentialsException invalidCredentialsEx:
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    response.Message = invalidCredentialsEx.Message;
+                    response.Message = _localize(invalidCredentialsEx.Message);
                     break;
 
                 case NotFoundException notFoundEx:
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    response.Message = notFoundEx.Message;
+                    response.Message = _localize(notFoundEx.Message);
                     break;
 
                 case BadRequestException badRequestEx:
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response.Message = badRequestEx.Message;
+                    response.Message = _localize(badRequestEx.Message);
                     break;
 
                 case PersistenceException persistenceEx:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    response.Message = persistenceEx.Message;
+                    response.Message = _localize(persistenceEx.Message);
                     break;
 
                 case BusinessException businessEx:
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    response.Message = businessEx.Message;
+                    response.Message = _localize(businessEx.Message);
                     break;
 
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    response.Message = "An unexpected error occurred.";
+                    response.Message = _localize("Error.GenericError"); 
                     break;
             }
 

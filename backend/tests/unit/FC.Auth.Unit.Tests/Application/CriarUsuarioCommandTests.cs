@@ -65,13 +65,12 @@ namespace FC.Auth.Unit.Tests.Application
                 async () => await _handler.Handle(command, CancellationToken.None));
 
             Assert.Equal(6, result.Errors.Count());
-            Assert.Contains(UsuarioCriacaoValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.EmailObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.SenhaObrigatoria, result.Errors.Select(c => c.ErrorMessage));
-
-            Assert.Contains(UsuarioCriacaoValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.EmailInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.SenhaInvalida, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_NomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_EmailObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_SenhaObrigatoria, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_NomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_EmailInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_SenhaInvalida, result.Errors.Select(c => c.ErrorCode));
 
             _mapper.Received(1).Map<Usuario>(command);
             _repositorio.DidNotReceiveWithAnyArgs().Criar(usuario);

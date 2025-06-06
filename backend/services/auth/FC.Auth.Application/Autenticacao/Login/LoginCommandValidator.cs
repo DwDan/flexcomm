@@ -7,10 +7,13 @@ namespace FC.Auth.Application.Autenticacao.Login
         public LoginCommandValidator()
         {
             RuleFor(command => command.Email)
-                .NotEmpty().WithMessage(LoginErrors.EmailObrigatorio);
+                .NotEmpty().WithErrorCode(Login_EmailObrigatorio);
 
             RuleFor(command => command.Senha)
-                .NotEmpty().WithMessage(LoginErrors.SenhaObrigatoria);
+                .NotEmpty().WithErrorCode(Login_SenhaObrigatoria);
         }
+
+        public static string Login_EmailObrigatorio => "Login.EmailObrigatorio";
+        public static string Login_SenhaObrigatoria => "Login.SenhaObrigatoria";
     }
 }

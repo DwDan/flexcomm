@@ -50,13 +50,12 @@ namespace FC.Auth.Unit.Tests.Domain
             // Assert
             Assert.False(result.IsValid);
             Assert.Equal(6, result.Errors.Count);
-            Assert.Contains(UsuarioCriacaoValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.EmailObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.SenhaObrigatoria, result.Errors.Select(c => c.ErrorMessage));
-
-            Assert.Contains(UsuarioCriacaoValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.EmailInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioCriacaoValidation.SenhaInvalida, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_NomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_EmailObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_SenhaObrigatoria, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_NomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_EmailInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioCriacaoValidation.CriarUsuario_SenhaInvalida, result.Errors.Select(c => c.ErrorCode));
         }
 
         [Fact(DisplayName = "Alterar usuario deve alterar usuario valido com sucesso")]
@@ -92,21 +91,21 @@ namespace FC.Auth.Unit.Tests.Domain
             // Assert
             Assert.False(result.IsValid);
             Assert.Equal(15, result.Errors.Count);
-            Assert.Contains(UsuarioAlteracaoValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.SobrenomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.SobrenomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.LogradouroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.BairroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CidadeObrigatoria, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.EstadoObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CepObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CepInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.DddObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.DddInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroTelefoneObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_SobrenomeObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_SobrenomeInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_LogradouroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_BairroObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CidadeObrigatoria, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_EstadoObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CepObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_CepInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_DddObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_DddInvalido, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneObrigatorio, result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorCode));
         }
     }
 }
