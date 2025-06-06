@@ -83,21 +83,21 @@ namespace FC.Auth.Unit.Tests.Application
                 async () => await _handler.Handle(command, CancellationToken.None));
 
             Assert.Equal(15, result.Errors.Count());
-            Assert.Contains(UsuarioAlteracaoValidation.NomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.SobrenomeObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.SobrenomeInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.LogradouroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.BairroObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CidadeObrigatoria, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.EstadoObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CepObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.CepInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.DddObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.DddInvalido, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroTelefoneObrigatorio, result.Errors.Select(c => c.ErrorMessage));
-            Assert.Contains(UsuarioAlteracaoValidation.NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains("AlterarUsuario.NomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.NomeInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.SobrenomeObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.SobrenomeInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.LogradouroObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.NumeroObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.BairroObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.CidadeObrigatoria", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.EstadoObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.CepObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.CepInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.DddObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.DddInvalido", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.NumeroTelefoneObrigatorio", result.Errors.Select(c => c.ErrorCode));
+            Assert.Contains("AlterarUsuario.NumeroTelefoneInvalido", result.Errors.Select(c => c.ErrorCode));
 
             _repositorio.DidNotReceiveWithAnyArgs().Alterar(usuario);
             await _repositorio.UnitOfWork.DidNotReceiveWithAnyArgs().CommitAsync(CancellationToken.None);

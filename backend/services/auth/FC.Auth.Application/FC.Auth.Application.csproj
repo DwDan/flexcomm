@@ -8,11 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="19.225.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Application\FC.BuildingBlocks.Application.csproj" />
     <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Core\FC.BuildingBlocks.Core.csproj" />
     <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Domain\FC.BuildingBlocks.Domain.csproj" />
     <ProjectReference Include="..\FC.Auth.Domain\FC.Auth.Domain.csproj" />

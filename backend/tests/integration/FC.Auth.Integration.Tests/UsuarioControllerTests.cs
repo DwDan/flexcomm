@@ -4,6 +4,7 @@ using FC.Auth.Application.Usuarios.AlterarUsuario;
 using FC.Auth.Application.Usuarios.CriarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.AlterarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.CriarUsuario;
+using FC.Auth.WebAPI.Resources;
 using FC.BuildingBlocks.WebAPI;
 
 namespace FC.Auth.Integration.Tests
@@ -65,16 +66,16 @@ namespace FC.Auth.Integration.Tests
 
             Assert.NotNull(result);
             Assert.Equal(10, result!.Errors.Count());
-            Assert.Contains(CriarUsuarioCommandValidator.NomeObrigatorio, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.EmailObrigatorio, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaObrigatoria, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.NomeInvalido, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.EmailInvalido, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaTamanhoCaracteres, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaLetraMaiuscula, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaLetraMinuscula, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaNumero, result.Errors.Select(e => e.Detail));
-            Assert.Contains(CriarUsuarioCommandValidator.SenhaCaracter, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_NomeObrigatorio, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_EmailObrigatorio, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaObrigatoria, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_NomeInvalido, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_EmailInvalido, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaTamanhoCaracteres, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaLetraMaiuscula, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaLetraMinuscula, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaNumero, result.Errors.Select(e => e.Detail));
+            Assert.Contains(Messages.CriarUsuario_SenhaCaracter, result.Errors.Select(e => e.Detail));
         }
 
         [Fact(DisplayName = "Alterar usuário válido deve executar com sucesso")]
@@ -144,21 +145,21 @@ namespace FC.Auth.Integration.Tests
 
             Assert.NotNull(result);
             Assert.Equal(15, result.Errors.Count());
-            Assert.Contains(AlterarUsuarioCommandValidator.NomeObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.NomeInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.SobrenomeObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.SobrenomeInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.LogradouroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.NumeroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.BairroObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.CidadeObrigatoria, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.EstadoObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.CepObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.CepInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.DddObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.DddInvalido, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.NumeroTelefoneObrigatorio, result.Errors.Select(c => c.Detail));
-            Assert.Contains(AlterarUsuarioCommandValidator.NumeroTelefoneInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_NomeObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_NomeInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_SobrenomeObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_SobrenomeInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_LogradouroObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_NumeroObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_BairroObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_CidadeObrigatoria, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_EstadoObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_CepObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_CepInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_DddObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_DddInvalido, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_NumeroTelefoneObrigatorio, result.Errors.Select(c => c.Detail));
+            Assert.Contains(Messages.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.Detail));
         }
 
         [Fact(DisplayName = "Criar usuário com email duplicado deve executar com falha")]

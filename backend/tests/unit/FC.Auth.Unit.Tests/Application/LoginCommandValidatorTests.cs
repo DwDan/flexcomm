@@ -35,8 +35,8 @@ namespace FC.Auth.Unit.Tests.Application
             // Assert
             Assert.False(result.IsValid);
             Assert.Equal(2, result!.Errors.Count());
-            Assert.Contains(LoginErrors.EmailObrigatorio, result.Errors.Select(e => e.ErrorMessage));
-            Assert.Contains(LoginErrors.SenhaObrigatoria, result.Errors.Select(e => e.ErrorMessage));
+            Assert.Contains("Login.EmailObrigatorio", result.Errors.Select(e => e.ErrorCode));
+            Assert.Contains("Login.SenhaObrigatoria", result.Errors.Select(e => e.ErrorCode));
         }
     }
 }
