@@ -17,4 +17,8 @@
     <PackageReference Include="xunit.extensibility.core" Version="2.5.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FC.BuildingBlocks.Domain\FC.BuildingBlocks.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

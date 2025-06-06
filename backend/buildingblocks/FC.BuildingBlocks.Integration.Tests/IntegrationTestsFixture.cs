@@ -1,4 +1,6 @@
-﻿using FC.BuildingBlocks.Integration.Tests.Helper;
+﻿using FC.BuildingBlocks.Domain.Security;
+using FC.BuildingBlocks.Integration.Tests.DTO;
+using FC.BuildingBlocks.Integration.Tests.Helper;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,12 +19,17 @@ namespace FC.BuildingBlocks.Integration.Tests
 
         private readonly UsuarioTestHelper _usuarioTestHelper;
 
+        public readonly IJwtTokenGenerator _jwtTokenGenerator;
+
         public IntegrationTestsFixture(string migrationsAssembly)
         {
             _dbContainer = StartContainer();
             Factory = ConfigureFactory(migrationsAssembly);
             Client = CreateClient();
             _usuarioTestHelper = new UsuarioTestHelper(Client);
+            _jwtTokenGenerator = Factory.Services.CreateScope()
+                .ServiceProvider.GetRequiredService<IJwtTokenGenerator>();
+
             InitializeDatabase();
         }
 
@@ -62,9 +69,14 @@ namespace FC.BuildingBlocks.Integration.Tests
                 });
         }
 
-        public async Task<Guid> RealizarAutenticacaoAsync()
+        public async Task<UsuarioDto> RealizarAutenticacaoAsync()
         {
             return await _usuarioTestHelper.RealizarAutenticacaoAsync();
+        }
+
+        public string GenerateTokenEmailConfirmation(UsuarioDto usuario)
+        {
+            return _jwtTokenGenerator.GenerateTokenEmailConfirmation(usuario);
         }
 
         private HttpClient CreateClient()

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FC.BuildingBlocks.Core\FC.BuildingBlocks.Core.csproj" />
     <ProjectReference Include="..\FC.BuildingBlocks.Domain\FC.BuildingBlocks.Domain.csproj" />
   </ItemGroup>
 

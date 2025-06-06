@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using FC.BuildingBlocks.Integration.Tests.DTO;
 
 namespace FC.BuildingBlocks.Integration.Tests.Mocker
 {
@@ -11,17 +12,13 @@ namespace FC.BuildingBlocks.Integration.Tests.Mocker
             _faker = new Faker("pt_BR");
         }
 
-        public Dictionary<string, string> Gerar()
+        public UsuarioDto Gerar()
         {
-            var nome = _faker.Name.FullName();
-            var email = $"usuario_{Guid.NewGuid()}@teste.com";
-            var senha = "Usuario-Teste@123";
-
-            return new Dictionary<string, string>
-            {
-                { "Nome", nome },
-                { "Email", email },
-                { "Senha", senha }
+            return new UsuarioDto() 
+            { 
+                Nome = _faker.Name.FullName(),
+                Email = $"usuario_{Guid.NewGuid()}@teste.com",
+                Senha = "Usuario-Teste@123"
             };
         }
     }

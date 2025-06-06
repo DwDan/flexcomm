@@ -45,7 +45,44 @@ namespace FC.BuildingBlocks.Unit.Tests
             }, out _);
 
             Assert.Equal(id.ToString(), principal.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            Assert.Equal("teste@teste.com", principal.FindFirst(ClaimTypes.Name)?.Value);
+            Assert.Equal("teste@teste.com", principal.FindFirst(ClaimTypes.Email)?.Value);
+        }
+
+        [Fact(DisplayName = "Gerar Token Deve Retornar Jwt Confirmacao Email Valido")]
+        [Trait("Autenticação", "JwtTokenGeneratorTests")]
+        public void GerarToken_DeveRetornarJwt_ConfirmacaoEmailValido()
+        {
+            // Arrange
+            var configuration = Substitute.For<IConfiguration>();
+            configuration["Jwt:EmailConfirmationSecret"].Returns(SecretKey);
+
+            var tokenGenerator = new JwtTokenGenerator(configuration);
+
+            var user = Substitute.For<IUsuario>();
+            var id = Guid.NewGuid();
+            user.Id.Returns(id);
+            user.Email.Returns("teste@teste.com");
+
+            // Act
+            var token = tokenGenerator.GenerateTokenEmailConfirmation(user);
+
+            // Assert
+            Assert.False(string.IsNullOrWhiteSpace(token));
+
+            var handler = new JwtSecurityTokenHandler();
+            var principal = handler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey)),
+                ClockSkew = TimeSpan.Zero
+            }, out _);
+
+            Assert.Equal(id.ToString(), principal.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            Assert.Equal("teste@teste.com", principal.FindFirst(ClaimTypes.Email)?.Value);
+            Assert.Equal("confirm_email", principal.FindFirst("action")?.Value);
         }
     }
 }

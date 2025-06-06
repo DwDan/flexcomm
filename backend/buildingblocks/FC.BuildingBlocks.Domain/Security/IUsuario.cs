@@ -4,5 +4,7 @@
     {
         public Guid Id { get; }
         public string Email { get; }
+        public bool Ativo { get; }
+        public bool EmailConfirmado { get; }
     }
 }

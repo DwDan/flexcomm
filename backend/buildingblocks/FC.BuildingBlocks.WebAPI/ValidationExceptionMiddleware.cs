@@ -72,6 +72,11 @@ namespace FC.BuildingBlocks.WebAPI
                     response.Message = _localize(businessEx.Message);
                     break;
 
+                case TokenSecurityException tokenSecurityEx:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.Message = _localize(tokenSecurityEx.Message);
+                    break;
+
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     response.Message = _localize("Error.GenericError"); 
