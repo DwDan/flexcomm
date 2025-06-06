@@ -25,6 +25,7 @@ namespace FC.Auth.Infrastructure
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPasswordHash, BCryptPasswordHash>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IEmailConfirmationTokenValidator, EmailConfirmationTokenValidator>();
 
             return services;
         }

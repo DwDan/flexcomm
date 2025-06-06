@@ -107,5 +107,20 @@ namespace FC.Auth.Unit.Tests.Domain
             Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneObrigatorio, result.Errors.Select(c => c.ErrorCode));
             Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorCode));
         }
+
+
+        [Fact(DisplayName = "Deve ser possível confirmar email com sucesso")]
+        [Trait("Autenticação", "UsuarioEntity")]
+        public void ConfirmacaoEmail_DeveRealizarComSucesso()
+        {
+            // Arrange
+            var usuario = new Usuario("João", "joao@teste.com");
+
+            // Act
+            usuario.ConfirmarEmail();
+
+            // Assert
+            Assert.True(usuario.EmailConfirmado);
+        }
     }
 }

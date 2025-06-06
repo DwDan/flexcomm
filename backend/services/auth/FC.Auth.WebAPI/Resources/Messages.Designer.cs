@@ -61,6 +61,15 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token é obrigatório..
+        /// </summary>
+        public static string _ConfirmacaoEmail_TokenObrigatorio {
+            get {
+                return ResourceManager.GetString("\"ConfirmacaoEmail.TokenObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O bairro é obrigatório..
         /// </summary>
         public static string AlterarUsuario_BairroObrigatorio {
@@ -201,6 +210,33 @@ namespace FC.Auth.WebAPI.Resources {
         public static string AlterarUsuario_SobrenomeObrigatorio {
             get {
                 return ResourceManager.GetString("AlterarUsuario.SobrenomeObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token possui credenciais inválidas..
+        /// </summary>
+        public static string ConfirmacaoEmail_ClaimsInvalidas {
+            get {
+                return ResourceManager.GetString("ConfirmacaoEmail.ClaimsInvalidas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token inválido..
+        /// </summary>
+        public static string ConfirmacaoEmail_TokenInvalido {
+            get {
+                return ResourceManager.GetString("ConfirmacaoEmail.TokenInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuário não encontrado..
+        /// </summary>
+        public static string ConfirmacaoEmail_UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("ConfirmacaoEmail.UsuarioNaoEncontrado", resourceCulture);
             }
         }
         

@@ -73,10 +73,10 @@ namespace FC.Auth.Integration.Tests
         public async void Login_CredencialValida_DeveRetornarStatusSucesso()
         {
             // Arrange & Act 
-            var usuarioId = await _fixture.RealizarAutenticacaoAsync();
+            var usuario = await _fixture.RealizarAutenticacaoAsync();
 
             // Assert
-            Assert.NotEqual(Guid.Empty, usuarioId);
+            Assert.NotEqual(Guid.Empty, usuario.Id);
         }
     }
 }

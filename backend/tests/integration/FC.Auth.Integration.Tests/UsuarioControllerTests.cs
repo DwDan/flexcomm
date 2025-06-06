@@ -1,7 +1,5 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
-using FC.Auth.Application.Usuarios.AlterarUsuario;
-using FC.Auth.Application.Usuarios.CriarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.AlterarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.CriarUsuario;
 using FC.Auth.WebAPI.Resources;
@@ -83,11 +81,11 @@ namespace FC.Auth.Integration.Tests
         public async void AlterarUsuario_Valido_DeveExecutarComSucesso()
         {
             // Arrange
-            var _usuarioId = await _fixture.RealizarAutenticacaoAsync();
+            var usuario = await _fixture.RealizarAutenticacaoAsync();
 
             var request = new AlterarUsuarioRequest
             {
-                Id = _usuarioId,
+                Id = usuario.Id,
                 Endereco = new AlterarUsuarioEnderecoRequest()
                 {
                     Bairro = "Bairro Teste",
@@ -121,7 +119,7 @@ namespace FC.Auth.Integration.Tests
         public async void AlterarUsuario_Invalido_DeveExecutarComFalha()
         {
             // Arrange
-            var _usuarioId = await _fixture.RealizarAutenticacaoAsync();
+            await _fixture.RealizarAutenticacaoAsync();
 
             var request = new AlterarUsuarioRequest
             {
@@ -166,6 +164,21 @@ namespace FC.Auth.Integration.Tests
             // Assert
             Assert.True(postResponse.IsSuccessStatusCode);
             Assert.False(postResponse2.IsSuccessStatusCode);
+        }
+
+        [Fact(DisplayName = "Confirmar email usuário token valido deve executar com sucesso")]
+        [Trait("Autenticação", "UsuarioController")]
+        public async void ConfirmarEmail_ComTokenValido_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var usuario = await _fixture.RealizarAutenticacaoAsync();
+            var token = _fixture.GenerateTokenEmailConfirmation(usuario);
+
+            // Act 
+            var getResponse = await _client.GetAsync($"api/usuario/confirmar-email?token={token}");
+
+            // Assert
+            Assert.True(getResponse.IsSuccessStatusCode);
         }
     }
 }

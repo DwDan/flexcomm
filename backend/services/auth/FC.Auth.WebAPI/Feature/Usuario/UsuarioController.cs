@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FC.Auth.Application.Usuarios.AlterarUsuario;
+using FC.Auth.Application.Usuarios.ConfirmarEmail;
 using FC.Auth.Application.Usuarios.CriarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.AlterarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.CriarUsuario;
@@ -38,6 +39,16 @@ namespace FC.Auth.WebAPI.Feature.Usuario
             EnsureRouteMatchesBodyId(id, request.Id);
 
             var command = _mapper.Map<AlterarUsuarioCommand>(request);
+
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpGet("confirmar-email")]
+        public async Task<IActionResult> EmailConfirmation([FromQuery] string token, CancellationToken cancellationToken)
+        {
+            var command = new ConfirmarEmailUsuarioCommand(token);
 
             var response = await _mediator.Send(command, cancellationToken);
 

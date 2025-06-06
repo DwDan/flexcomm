@@ -10,6 +10,7 @@ namespace FC.Auth.Domain.Entities
         public string Email { get; private set; }
         public string SenhaHash { get; private set; }
         public bool Ativo { get; private set; }
+        public bool EmailConfirmado { get; private set; }
 
         public NomeCompleto NomeCompleto { get; private set; }
         public Endereco? Endereco { get; private set; }
@@ -54,6 +55,11 @@ namespace FC.Auth.Domain.Entities
         public ValidationResult ValidarAlteracao()
         {
             return new UsuarioAlteracaoValidation().Validate(this);
+        }
+
+        public void ConfirmarEmail()
+        {
+            EmailConfirmado = true;
         }
     }
 }
