@@ -2,6 +2,6 @@
 {
     public interface IEventBusConsumer
     {
-        Task StartAsync(CancellationToken cancellationToken);
+        Task StartAsync(CancellationToken cancellationToken, bool runOnce = false);
     }
 }

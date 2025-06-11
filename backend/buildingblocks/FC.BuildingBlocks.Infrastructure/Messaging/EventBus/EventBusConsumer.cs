@@ -30,7 +30,7 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
             _consumer = consumer;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken, bool runOnce = false)
         {
             var settings = _options.Value;
 
@@ -47,6 +47,10 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
                     if (string.IsNullOrWhiteSpace(rawMessage))
                     {
                         _logger.LogWarning("Mensagem consumida é nula.");
+
+                        if (runOnce) 
+                            break;
+
                         continue;
                     }
 
@@ -88,6 +92,8 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
                 {
                     _logger.LogError(ex, "Erro inesperado no consumidor.");
                 }
+
+                if (runOnce) break;
             }
 
             _consumer.Close();

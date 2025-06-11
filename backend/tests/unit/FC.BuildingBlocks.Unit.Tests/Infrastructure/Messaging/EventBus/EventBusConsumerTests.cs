@@ -39,10 +39,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
         {
             var consumer = CreateConsumer(out var wrapper, out _, out _, out var logger, null);
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             logger.Received().Log(
                 LogLevel.Warning,
@@ -65,10 +62,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out var context, out _, raw);
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             context.Received().Set(correlationId);
         }
@@ -84,10 +78,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out var context, out _, raw);
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             Guid result;
 
@@ -101,10 +92,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out _, out var logger, raw);
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             logger.Received().Log(
                 LogLevel.Debug,
@@ -125,10 +113,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out var dispatcher, out _, out _, raw);
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             await dispatcher.Received().DispatchAsync(raw, Arg.Any<CancellationToken>());
         }
@@ -172,10 +157,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
                 .DispatchAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
                 .Returns<Task>(_ => throw new InvalidOperationException("erro"));
 
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(50);
-
-            await consumer.StartAsync(cts.Token);
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
 
             logger.Received().Log(
                 LogLevel.Error,
@@ -183,6 +165,54 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
                 Arg.Is<object>(o => o.ToString()!.Contains("Erro inesperado")),
                 Arg.Any<InvalidOperationException>(),
                 Arg.Any<Func<object, Exception?, string>>());
+        }
+
+        [Fact(DisplayName = "Subscribe deve ser chamado ao iniciar o consumidor")]
+        public async Task StartAsync_DeveChamarSubscribe()
+        {
+            var consumer = CreateConsumer(out var wrapper, out _, out _, out _, null);
+
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+
+            wrapper.Received(1).Subscribe();
+        }
+
+        [Fact(DisplayName = "Deve logar início e fim do consumo com sucesso")]
+        public async Task StartAsync_ConsumoValido_DeveLogarInicioEFim()
+        {
+            var raw = JsonSerializer.Serialize(new
+            {
+                EventType = "Teste",
+                Data = "{}"
+            });
+
+            var consumer = CreateConsumer(out _, out var dispatcher, out _, out var logger, raw);
+
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+
+            logger.Received().Log(
+                LogLevel.Information,
+                Arg.Any<EventId>(),
+                Arg.Is<object>(msg => msg.ToString()!.Contains("Iniciando consumo do tópico")),
+                null,
+                Arg.Any<Func<object, Exception?, string>>());
+
+            logger.Received().Log(
+                LogLevel.Information,
+                Arg.Any<EventId>(),
+                Arg.Is<object>(msg => msg.ToString()!.Contains("Mensagem consumida do tópico")),
+                null,
+                Arg.Any<Func<object, Exception?, string>>());
+        }
+
+        [Fact(DisplayName = "Deve chamar Close ao encerrar")]
+        public async Task StartAsync_Encerramento_DeveChamarClose()
+        {
+            var consumer = CreateConsumer(out var wrapper, out _, out _, out _, null);
+
+            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+
+            wrapper.Received(1).Close();
         }
     }
 }
