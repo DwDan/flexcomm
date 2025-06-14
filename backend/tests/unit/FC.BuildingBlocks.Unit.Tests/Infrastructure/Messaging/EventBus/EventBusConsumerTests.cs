@@ -39,12 +39,12 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
         {
             var consumer = CreateConsumer(out var wrapper, out _, out _, out var logger, null);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             logger.Received().Log(
                 LogLevel.Warning,
                 Arg.Any<EventId>(),
-                Arg.Is<object>(x => x.ToString()!.Contains("Mensagem consumida é nula")),
+                Arg.Is<object>(x => x.ToString()!.Contains("Mensagem consumida é nula ou vazia")),
                 null,
                 Arg.Any<Func<object, Exception?, string>>());
         }
@@ -62,7 +62,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out var context, out _, raw);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             context.Received().Set(correlationId);
         }
@@ -78,7 +78,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out var context, out _, raw);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             Guid result;
 
@@ -92,7 +92,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out _, out _, out var logger, raw);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             logger.Received().Log(
                 LogLevel.Debug,
@@ -113,7 +113,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out var dispatcher, out _, out _, raw);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             await dispatcher.Received().DispatchAsync(raw, Arg.Any<CancellationToken>());
         }
@@ -157,7 +157,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
                 .DispatchAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
                 .Returns<Task>(_ => throw new InvalidOperationException("erro"));
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             logger.Received().Log(
                 LogLevel.Error,
@@ -172,7 +172,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
         {
             var consumer = CreateConsumer(out var wrapper, out _, out _, out _, null);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             wrapper.Received(1).Subscribe();
         }
@@ -188,7 +188,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
 
             var consumer = CreateConsumer(out _, out var dispatcher, out _, out var logger, raw);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             logger.Received().Log(
                 LogLevel.Information,
@@ -210,7 +210,7 @@ namespace FC.BuildingBlocks.Unit.Infrastructure.Messaging.EventBus.Tests
         {
             var consumer = CreateConsumer(out var wrapper, out _, out _, out _, null);
 
-            await consumer.StartAsync(CancellationToken.None, runOnce: true);
+            await consumer.StartAsync(CancellationToken.None, runExactly: 1);
 
             wrapper.Received(1).Close();
         }

@@ -30,13 +30,14 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
             _consumer = consumer;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken, bool runOnce = false)
+        public async Task StartAsync(CancellationToken cancellationToken, int runExactly = 0)
         {
             var settings = _options.Value;
-
             _consumer.Subscribe();
 
             _logger.LogInformation("Iniciando consumo do tópico EventBus: {Topic}", settings.Topic);
+
+            int processed = 0;
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -45,14 +46,7 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
                     var rawMessage = _consumer.Consume(cancellationToken);
 
                     if (string.IsNullOrWhiteSpace(rawMessage))
-                    {
-                        _logger.LogWarning("Mensagem consumida é nula.");
-
-                        if (runOnce) 
-                            break;
-
-                        continue;
-                    }
+                        throw new InvalidDataException("Mensagem consumida é nula ou vazia.");
 
                     string? correlationId = null;
                     try
@@ -88,15 +82,29 @@ namespace FC.BuildingBlocks.Infrastructure.Messaging.EventBus
                     _logger.LogInformation("Cancelamento solicitado, encerrando consumidor EventBus.");
                     break;
                 }
+                catch (InvalidDataException)
+                {
+                    _logger.LogWarning("Mensagem consumida é nula ou vazia.");
+                }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Erro inesperado no consumidor.");
                 }
 
-                if (runOnce) break;
+                processed++;
+
+                if (!ShouldContinueProcessing(runExactly, processed))
+                    break;
             }
 
             _consumer.Close();
+        }
+
+        private static bool ShouldContinueProcessing(int runExactly, int processed)
+        {
+            if (runExactly > 0 && processed >= runExactly)
+                return false;
+            return true;
         }
     }
 }
