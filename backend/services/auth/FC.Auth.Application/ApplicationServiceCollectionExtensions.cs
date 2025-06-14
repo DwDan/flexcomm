@@ -16,6 +16,7 @@ namespace FC.Auth.Application
             {
                 cfg.RegisterServicesFromAssemblies(assembly);
                 cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             });
 
             return services;
