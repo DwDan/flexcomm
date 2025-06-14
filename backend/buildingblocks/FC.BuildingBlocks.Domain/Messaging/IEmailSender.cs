@@ -1,4 +1,4 @@
-﻿namespace FC.Messaging.EmailService.Domain
+﻿namespace FC.BuildingBlocks.Domain.Messaging
 {
     public interface IEmailSender
     {

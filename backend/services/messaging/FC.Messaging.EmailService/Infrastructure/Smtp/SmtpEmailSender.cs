@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
-using FC.Messaging.EmailService.Domain;
+using FC.BuildingBlocks.Domain.Messaging;
 using Microsoft.Extensions.Options;
 
 namespace FC.Messaging.EmailService.Infrastructure.Smtp

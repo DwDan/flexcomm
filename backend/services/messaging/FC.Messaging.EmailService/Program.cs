@@ -6,7 +6,6 @@ using FC.BuildingBlocks.Infrastructure.Messaging;
 using FC.BuildingBlocks.Infrastructure.Messaging.EventBus;
 using FC.BuildingBlocks.Infrastructure.Messaging.Kafka;
 using FC.Messaging.EmailService.Application;
-using FC.Messaging.EmailService.Domain;
 using FC.Messaging.EmailService.Infrastructure;
 using FC.Messaging.EmailService.Infrastructure.Smtp;
 using Microsoft.AspNetCore.Builder;

@@ -1,6 +1,5 @@
 ﻿using FC.BuildingBlocks.Domain.Messaging;
 using FC.BuildingBlocks.Domain.Messaging.Events;
-using FC.Messaging.EmailService.Domain;
 
 namespace FC.Messaging.EmailService.Application
 {

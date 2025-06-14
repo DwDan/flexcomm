@@ -34,16 +34,16 @@ namespace FC.Auth.Integration.Tests
             // Act
             var postResponse = await _client.PostAsJsonAsync("api/usuario", request);
 
-            // Assert - Espera até 5 segundos ou falha
+            // Assert
             var tentativas = 0;
-            while (!_fixture.EmailHandler.FoiExecutado && tentativas < 50)
+            while (!_fixture.EmailSender.FoiExecutado && tentativas < 50)
             {
                 await Task.Delay(100);
                 tentativas++;
             }
 
             Assert.True(postResponse.IsSuccessStatusCode);
-            Assert.True(_fixture.EmailHandler.FoiExecutado, "Handler de e-mail não foi executado a tempo.");
+            Assert.True(_fixture.EmailSender.FoiExecutado, "Handler de e-mail não foi executado a tempo.");
         }
 
         [Fact(DisplayName = "Criar usuário inválido deve executar com falha")]
@@ -185,8 +185,17 @@ namespace FC.Auth.Integration.Tests
             // Act 
             var getResponse = await _client.GetAsync($"api/usuario/confirmar-email?token={token}");
 
+
             // Assert
+            var tentativas = 0;
+            while (!_fixture.EmailSender.FoiExecutado && tentativas < 50)
+            {
+                await Task.Delay(100);
+                tentativas++;
+            }
+
             Assert.True(getResponse.IsSuccessStatusCode);
+            Assert.True(_fixture.EmailSender.FoiExecutado, "Handler de e-mail não foi executado a tempo.");
         }
     }
 }

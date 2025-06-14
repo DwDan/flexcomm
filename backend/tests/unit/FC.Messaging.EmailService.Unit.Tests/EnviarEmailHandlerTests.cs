@@ -1,6 +1,6 @@
-﻿using FC.BuildingBlocks.Domain.Messaging.Events;
+﻿using FC.BuildingBlocks.Domain.Messaging;
+using FC.BuildingBlocks.Domain.Messaging.Events;
 using FC.Messaging.EmailService.Application;
-using FC.Messaging.EmailService.Domain;
 using NSubstitute;
 
 namespace FC.Messaging.EmailService.Unit.Tests
