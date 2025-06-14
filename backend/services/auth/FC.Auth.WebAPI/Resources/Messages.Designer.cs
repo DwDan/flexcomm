@@ -241,6 +241,15 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuário com o email informado já existente..
+        /// </summary>
+        public static string CriarUsuario_EmailDuplicado {
+            get {
+                return ResourceManager.GetString("CriarUsuario.EmailDuplicado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O e-mail é inválido..
         /// </summary>
         public static string CriarUsuario_EmailInvalido {

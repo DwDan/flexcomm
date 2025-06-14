@@ -1,4 +1,5 @@
 ﻿using FC.Auth.Domain.Entities;
+using FC.Auth.Domain.Messaging.Events;
 using FC.Auth.Domain.Validation;
 
 namespace FC.Auth.Unit.Tests.Domain
@@ -121,6 +122,41 @@ namespace FC.Auth.Unit.Tests.Domain
 
             // Assert
             Assert.True(usuario.EmailConfirmado);
+        }
+
+        [Fact(DisplayName = "MarcarComoCriado deve adicionar evento de domínio corretamente")]
+        [Trait("Autenticação", "UsuarioEntity")]
+        public void MarcarComoCriado_DeveAdicionarEventoDominio()
+        {
+            // Arrange
+            var usuario = new Usuario("João", "joao@teste.com");
+
+            // Act
+            usuario.MarcarComoCriado();
+
+            // Assert
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioCriadoEvent>().FirstOrDefault();
+            Assert.NotNull(evento);
+            Assert.Equal(usuario.Id, evento.Id);
+            Assert.Equal(usuario.Email, evento.Email);
+        }
+
+        [Fact(DisplayName = "MarcarComoAlterado deve adicionar evento de domínio corretamente")]
+        [Trait("Autenticação", "UsuarioEntity")]
+        public void MarcarComoAlterado_DeveAdicionarEventoDominio()
+        {
+            // Arrange
+            var usuario = new Usuario("João", "joao@teste.com");
+
+            // Act
+            usuario.MarcarComoAlterado();
+
+            // Assert
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioAlteradoEvent>().FirstOrDefault();
+            Assert.NotNull(evento);
+            Assert.Equal(usuario.Id, evento.Id);
+            Assert.Equal(usuario.Email, evento.Email);
+            Assert.Equal(usuario.NomeCompleto.PrimeiroNome, evento.Nome);
         }
     }
 }

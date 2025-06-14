@@ -7,16 +7,16 @@ using FC.BuildingBlocks.WebAPI;
 
 namespace FC.Auth.Integration.Tests
 {
-    [Collection(nameof(IntegrationControllerFixtureCollection))]
+    [Collection(nameof(AuthTestsFixtureCollection))]
     public class UsuarioControllerTests
     {
         private readonly HttpClient _client;
-        private readonly AuthIntegrationTestsFixture _fixture;
+        private readonly AuthTestsFixture _fixture;
 
-        public UsuarioControllerTests(AuthIntegrationTestsFixture fixture)
+        public UsuarioControllerTests(AuthTestsFixture fixture)
         {
             _fixture = fixture;
-            _client = fixture.Client;
+            _client = fixture.Clients["Auth"];
         }
 
         [Fact(DisplayName = "Criar usuário válido deve executar com sucesso")]
@@ -31,11 +31,19 @@ namespace FC.Auth.Integration.Tests
                 Senha = "Teste@123"
             };
 
-            // Act 
+            // Act
             var postResponse = await _client.PostAsJsonAsync("api/usuario", request);
 
-            // Assert
+            // Assert - Espera até 5 segundos ou falha
+            var tentativas = 0;
+            while (!_fixture.EmailHandler.FoiExecutado && tentativas < 50)
+            {
+                await Task.Delay(100);
+                tentativas++;
+            }
+
             Assert.True(postResponse.IsSuccessStatusCode);
+            Assert.True(_fixture.EmailHandler.FoiExecutado, "Handler de e-mail não foi executado a tempo.");
         }
 
         [Fact(DisplayName = "Criar usuário inválido deve executar com falha")]
@@ -81,7 +89,7 @@ namespace FC.Auth.Integration.Tests
         public async void AlterarUsuario_Valido_DeveExecutarComSucesso()
         {
             // Arrange
-            var usuario = await _fixture.RealizarAutenticacaoAsync();
+            var usuario = await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
 
             var request = new AlterarUsuarioRequest
             {
@@ -119,7 +127,7 @@ namespace FC.Auth.Integration.Tests
         public async void AlterarUsuario_Invalido_DeveExecutarComFalha()
         {
             // Arrange
-            await _fixture.RealizarAutenticacaoAsync();
+            await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
 
             var request = new AlterarUsuarioRequest
             {
@@ -171,8 +179,8 @@ namespace FC.Auth.Integration.Tests
         public async void ConfirmarEmail_ComTokenValido_DeveExecutarComSucesso()
         {
             // Arrange
-            var usuario = await _fixture.RealizarAutenticacaoAsync();
-            var token = _fixture.GenerateTokenEmailConfirmation(usuario);
+            var usuario = await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
+            var token = _fixture.JwtTokenGenerator.GenerateTokenEmailConfirmation(usuario);
 
             // Act 
             var getResponse = await _client.GetAsync($"api/usuario/confirmar-email?token={token}");

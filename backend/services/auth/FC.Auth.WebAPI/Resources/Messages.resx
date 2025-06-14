@@ -231,4 +231,7 @@
   <data name="&quot;ConfirmacaoEmail.TokenObrigatorio" xml:space="preserve">
     <value>Token é obrigatório.</value>
   </data>
+  <data name="CriarUsuario.EmailDuplicado" xml:space="preserve">
+    <value>Usuário com o email informado já existente.</value>
+  </data>
 </root>

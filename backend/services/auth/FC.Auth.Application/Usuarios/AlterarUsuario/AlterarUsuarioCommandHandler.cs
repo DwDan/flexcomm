@@ -43,6 +43,8 @@ namespace FC.Auth.Application.Usuarios.AlterarUsuario
             if (!result.IsValid)
                 throw new ValidationException(result.Errors);
 
+            usuario.MarcarComoAlterado();
+
             _repositorio.Alterar(usuario);
 
             return await _repositorio.UnitOfWork.CommitAsync(cancellationToken);

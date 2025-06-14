@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using FC.Auth.Integration.Tests.FixtureCollection;
 using FC.Auth.WebAPI.Feature.Autenticacao.Login;
 using FC.Auth.WebAPI.Resources;
 using FC.BuildingBlocks.WebAPI;
@@ -10,10 +11,12 @@ namespace FC.Auth.Integration.Tests
     public class LoginControllerTests
     {
         private readonly AuthIntegrationTestsFixture _fixture;
+        private readonly HttpClient _client;
 
         public LoginControllerTests(AuthIntegrationTestsFixture fixture)
         {
-            _fixture = fixture;
+            _fixture = fixture; 
+            _client = fixture.Clients["Auth"];
         }
 
         [Fact(DisplayName = "Login com propriedades vazias deve retornar falhas de validação")]
@@ -24,7 +27,7 @@ namespace FC.Auth.Integration.Tests
             var request = new LoginRequest();
 
             // Act 
-            var postResponse = await _fixture.Client.PostAsJsonAsync("api/autenticacao/login", request);
+            var postResponse = await _client.PostAsJsonAsync("api/autenticacao/login", request);
 
             // Assert
             Assert.False(postResponse.IsSuccessStatusCode);
@@ -53,7 +56,7 @@ namespace FC.Auth.Integration.Tests
             };
 
             // Act 
-            var postResponse = await _fixture.Client.PostAsJsonAsync("api/autenticacao/login", request);
+            var postResponse = await _client.PostAsJsonAsync("api/autenticacao/login", request);
 
             // Assert
             Assert.False(postResponse.IsSuccessStatusCode);
@@ -73,7 +76,7 @@ namespace FC.Auth.Integration.Tests
         public async void Login_CredencialValida_DeveRetornarStatusSucesso()
         {
             // Arrange & Act 
-            var usuario = await _fixture.RealizarAutenticacaoAsync();
+            var usuario = await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
 
             // Assert
             Assert.NotEqual(Guid.Empty, usuario.Id);

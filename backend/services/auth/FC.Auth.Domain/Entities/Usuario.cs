@@ -1,4 +1,5 @@
-﻿using FC.Auth.Domain.Validation;
+﻿using FC.Auth.Domain.Messaging.Events;
+using FC.Auth.Domain.Validation;
 using FC.BuildingBlocks.Domain;
 using FC.BuildingBlocks.Domain.Security;
 using FluentValidation.Results;
@@ -60,6 +61,18 @@ namespace FC.Auth.Domain.Entities
         public void ConfirmarEmail()
         {
             EmailConfirmado = true;
+
+            AdicionarEventoDominio(new EmailUsuarioConfirmadoEvent(NomeCompleto.PrimeiroNome, Email));
+        }
+
+        public void MarcarComoCriado()
+        {
+            AdicionarEventoDominio(new UsuarioCriadoEvent(Id, Email));
+        }
+
+        public void MarcarComoAlterado()
+        {
+            AdicionarEventoDominio(new UsuarioAlteradoEvent(Id, NomeCompleto.PrimeiroNome, Email));
         }
     }
 }

@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\buildingblocks\FC.BuildingBlocks.Integration.Tests\FC.BuildingBlocks.Integration.Tests.csproj" />
     <ProjectReference Include="..\..\..\services\auth\FC.Auth.WebAPI\FC.Auth.WebAPI.csproj" />
+    <ProjectReference Include="..\..\..\services\messaging\FC.Messaging.EmailService\FC.Messaging.EmailService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

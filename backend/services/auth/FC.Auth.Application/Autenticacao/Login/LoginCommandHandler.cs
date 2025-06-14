@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FC.Auth.Domain.Messaging.Events;
 using FC.Auth.Domain.Repositories;
 using FC.BuildingBlocks.Domain;
 using FC.BuildingBlocks.Domain.Security;
@@ -12,15 +13,18 @@ namespace FC.Auth.Application.Autenticacao.Login
         private readonly IUsuarioRepository _repositorio;
         private readonly IPasswordHash _passwordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IMediator _mediator;
 
         public LoginCommandHandler(IUsuarioRepository usuarioRepositorio,
             IMapper mapper,
             IPasswordHash passwordHasher,
-            IJwtTokenGenerator jwtTokenGenerator)
+            IJwtTokenGenerator jwtTokenGenerator,
+            IMediator mediator)
         {
             _repositorio = usuarioRepositorio;
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _mediator = mediator;
         }
 
         public async Task<LoginCommandResult> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -31,6 +35,8 @@ namespace FC.Auth.Application.Autenticacao.Login
                 throw new InvalidCredentialsException("Login.CredenciaisInvalidas");
 
             var token = _jwtTokenGenerator.GenerateToken(user);
+
+            await _mediator.Publish(new LoginRealizadoEvent(user.Id, user.Email), cancellationToken);
 
             return new LoginCommandResult
             {

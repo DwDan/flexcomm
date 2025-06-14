@@ -5,6 +5,7 @@ using FC.Auth.Domain.Repositories;
 using FC.Auth.Domain.Validation;
 using FC.BuildingBlocks.Core.Exception;
 using FC.BuildingBlocks.Domain;
+using FC.BuildingBlocks.Domain.Messaging.EventBus;
 using FluentValidation;
 using NSubstitute;
 
@@ -16,13 +17,14 @@ namespace FC.Auth.Unit.Tests.Application
         private readonly IUsuarioRepository _repositorio;
         private readonly IMapper _mapper;
         private readonly IPasswordHash _passwordHash;
-
+        private readonly IEventBusProducer _eventProducer;
         public CriarUsuarioCommandTests()
         {
             _repositorio = Substitute.For<IUsuarioRepository>();
             _mapper = Substitute.For<IMapper>();
             _passwordHash = Substitute.For<IPasswordHash>();
-            _handler = new CriarUsuarioCommandHandler(_repositorio, _mapper, _passwordHash);
+            _eventProducer = Substitute.For<IEventBusProducer>();
+            _handler = new CriarUsuarioCommandHandler(_repositorio, _mapper, _passwordHash, _eventProducer);
         }
 
         [Fact(DisplayName = "Criar usuário válido deve executar com sucesso")]
@@ -91,7 +93,7 @@ namespace FC.Auth.Unit.Tests.Application
             var result = await Assert.ThrowsAsync<BusinessException>(
                 async () => await _handler.Handle(command, CancellationToken.None));
 
-            Assert.Contains("teste2@teste.com", result.Message);
+            Assert.Contains("CriarUsuario.EmailDuplicado", result.Message);
         }
     }
 }
