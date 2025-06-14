@@ -1,10 +1,9 @@
 ﻿using FC.Auth.Infrastructure;
 using FC.BuildingBlocks.Domain.Messaging;
-using FC.BuildingBlocks.Domain.Messaging.Events;
 using FC.BuildingBlocks.Domain.Security;
 using FC.BuildingBlocks.Integration.Tests.Fixture;
-using FC.BuildingBlocks.Integration.Tests.Handler;
 using FC.BuildingBlocks.Integration.Tests.Helper;
+using FC.BuildingBlocks.Integration.Tests.Smtp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -12,13 +11,13 @@ namespace FC.Auth.Integration.Tests
 {
     public class AuthTestsFixture : IntegrationEndToEndFixture
     {
-        public TestEmailHandler EmailHandler { get; }
+        public FakeStmpEmailSender EmailSender { get; }
         public UsuarioTestHelper UsuarioTestHelper { get; }
         public IJwtTokenGenerator JwtTokenGenerator { get; }
 
         public AuthTestsFixture() : base()
         {
-            EmailHandler = new TestEmailHandler();
+            EmailSender = new FakeStmpEmailSender();
 
             WithEventBus();
 
@@ -34,8 +33,8 @@ namespace FC.Auth.Integration.Tests
                 isConsumer: true,
                 configure: services =>
                 {
-                    services.RemoveAll(typeof(IIntegrationEventHandler<EnviarEmailEvent>));
-                    services.AddSingleton<IIntegrationEventHandler<EnviarEmailEvent>>(EmailHandler);
+                    services.RemoveAll(typeof(IEmailSender));
+                    services.AddSingleton<IEmailSender>(EmailSender);
                 });
 
             UsuarioTestHelper = new UsuarioTestHelper(Clients["Auth"]);
