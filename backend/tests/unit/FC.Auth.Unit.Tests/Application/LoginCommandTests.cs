@@ -4,6 +4,7 @@ using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
 using FC.BuildingBlocks.Domain;
 using FC.BuildingBlocks.Domain.Security;
+using MediatR;
 using Microsoft.VisualStudio.Services.WebApi.Jwt;
 using NSubstitute;
 
@@ -16,6 +17,7 @@ namespace FC.Auth.Unit.Tests.Application
         private readonly IMapper _mapper;
         private readonly IPasswordHash _passwordHash;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IMediator _mediator;
 
         public LoginCommandTests()
         {
@@ -23,7 +25,8 @@ namespace FC.Auth.Unit.Tests.Application
             _mapper = Substitute.For<IMapper>();
             _passwordHash = Substitute.For<IPasswordHash>();
             _jwtTokenGenerator = Substitute.For<IJwtTokenGenerator>(); 
-            _handler = new LoginCommandHandler(_repositorio, _mapper, _passwordHash, _jwtTokenGenerator);
+            _mediator = Substitute.For<IMediator>(); 
+            _handler = new LoginCommandHandler(_repositorio, _mapper, _passwordHash, _jwtTokenGenerator, _mediator);
         }
 
         [Fact(DisplayName = "Login válido deve executar com sucesso")]

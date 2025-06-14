@@ -39,6 +39,9 @@ namespace FC.Auth.Infrastructure.Migrations
                         .HasColumnType("varchar")
                         .HasColumnName("email");
 
+                    b.Property<bool>("EmailConfirmado")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("SenhaHash")
                         .IsRequired()
                         .HasMaxLength(256)

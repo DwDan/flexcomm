@@ -3,5 +3,6 @@
     public interface IJwtTokenGenerator
     {
         string GenerateToken(IUsuario user);
+        string GenerateTokenEmailConfirmation(IUsuario user);
     }
 }

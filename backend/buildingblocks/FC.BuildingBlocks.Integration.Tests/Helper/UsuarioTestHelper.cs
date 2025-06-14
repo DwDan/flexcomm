@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using FC.BuildingBlocks.Integration.Tests.DTO;
 using FC.BuildingBlocks.Integration.Tests.Mocker;
 
 namespace FC.BuildingBlocks.Integration.Tests.Helper
@@ -16,27 +17,27 @@ namespace FC.BuildingBlocks.Integration.Tests.Helper
             _fakeUsuarioGenerator = new FakeUsuarioGenerator();
         }
 
-        public async Task<Guid> RealizarAutenticacaoAsync()
+        public async Task<UsuarioDto> RealizarAutenticacaoAsync()
         {
             var usuario = _fakeUsuarioGenerator.Gerar();
 
-            var usuarioId = await CriarUsuarioTeste(usuario);
+            usuario.Id = await CriarUsuarioTeste(usuario);
 
             await RealizarLoginAsync(usuario);
 
-            return usuarioId;
+            return usuario;
         }
 
-        private async Task<Guid> CriarUsuarioTeste(Dictionary<string, string> request)
+        private async Task<Guid> CriarUsuarioTeste(UsuarioDto usuario)
         {
-            var response = await _client.PostAsJsonAsync("api/usuario", request);
+            var response = await _client.PostAsJsonAsync("api/usuario", usuario);
 
             response.EnsureSuccessStatusCode();
 
             return await ObterUsuarioId(response);
         }
 
-        private async Task RealizarLoginAsync(Dictionary<string, string> request)
+        private async Task RealizarLoginAsync(UsuarioDto request)
         {
             var response = await _client.PostAsJsonAsync("api/autenticacao/login", request);
 

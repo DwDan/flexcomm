@@ -1,4 +1,5 @@
-﻿using FC.Auth.Domain.Validation;
+﻿using FC.Auth.Domain.Messaging.Events;
+using FC.Auth.Domain.Validation;
 using FC.BuildingBlocks.Domain;
 using FC.BuildingBlocks.Domain.Security;
 using FluentValidation.Results;
@@ -10,6 +11,7 @@ namespace FC.Auth.Domain.Entities
         public string Email { get; private set; }
         public string SenhaHash { get; private set; }
         public bool Ativo { get; private set; }
+        public bool EmailConfirmado { get; private set; }
 
         public NomeCompleto NomeCompleto { get; private set; }
         public Endereco? Endereco { get; private set; }
@@ -54,6 +56,23 @@ namespace FC.Auth.Domain.Entities
         public ValidationResult ValidarAlteracao()
         {
             return new UsuarioAlteracaoValidation().Validate(this);
+        }
+
+        public void ConfirmarEmail()
+        {
+            EmailConfirmado = true;
+
+            AdicionarEventoDominio(new EmailUsuarioConfirmadoEvent(NomeCompleto.PrimeiroNome, Email));
+        }
+
+        public void MarcarComoCriado()
+        {
+            AdicionarEventoDominio(new UsuarioCriadoEvent(Id, Email));
+        }
+
+        public void MarcarComoAlterado()
+        {
+            AdicionarEventoDominio(new UsuarioAlteradoEvent(Id, NomeCompleto.PrimeiroNome, Email));
         }
     }
 }

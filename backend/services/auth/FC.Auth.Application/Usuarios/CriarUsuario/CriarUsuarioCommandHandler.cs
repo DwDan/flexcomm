@@ -3,6 +3,7 @@ using FC.Auth.Domain.Entities;
 using FC.Auth.Domain.Repositories;
 using FC.BuildingBlocks.Core.Exception;
 using FC.BuildingBlocks.Domain;
+using FC.BuildingBlocks.Domain.Messaging.EventBus;
 using FluentValidation;
 using MediatR;
 
@@ -16,7 +17,8 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
         public CriarUsuarioCommandHandler(IUsuarioRepository usuarioRepositorio, 
             IMapper mapper, 
-            IPasswordHash passwordHasher)
+            IPasswordHash passwordHasher,
+            IEventBusProducer eventProducer)
         {
             _repositorio = usuarioRepositorio;
             _mapper = mapper;
@@ -27,7 +29,7 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
         {
             var usuarioExistente = await _repositorio.ObterPorEmailAsync(request.Email, cancellationToken);
             if(usuarioExistente is not null)
-                throw new BusinessException($"Já existe um usuário cadastrado com o e-mail {request.Email}.");
+                throw new BusinessException($"CriarUsuario.EmailDuplicado");
 
             var usuario = _mapper.Map<Usuario>(request);
             var senhaCriptografada = _passwordHasher.HashPassword(request.Senha);
@@ -37,6 +39,8 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
 
             if (!result.IsValid)
                 throw new ValidationException(result.Errors);
+
+            usuario.MarcarComoCriado();
 
             _repositorio.Criar(usuario);
 

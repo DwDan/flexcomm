@@ -219,4 +219,19 @@
   <data name="AlterarUsuario.IdObrigatorio" xml:space="preserve">
     <value>O id do usuário é obrigatório.</value>
   </data>
+  <data name="ConfirmacaoEmail.TokenInvalido" xml:space="preserve">
+    <value>Token inválido.</value>
+  </data>
+  <data name="ConfirmacaoEmail.UsuarioNaoEncontrado" xml:space="preserve">
+    <value>Usuário não encontrado.</value>
+  </data>
+  <data name="ConfirmacaoEmail.ClaimsInvalidas" xml:space="preserve">
+    <value>Token possui credenciais inválidas.</value>
+  </data>
+  <data name="&quot;ConfirmacaoEmail.TokenObrigatorio" xml:space="preserve">
+    <value>Token é obrigatório.</value>
+  </data>
+  <data name="CriarUsuario.EmailDuplicado" xml:space="preserve">
+    <value>Usuário com o email informado já existente.</value>
+  </data>
 </root>

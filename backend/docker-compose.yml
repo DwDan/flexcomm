@@ -1,4 +1,49 @@
 services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.2.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:7.2.1
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  init-kafka:
+    image: confluentinc/cp-kafka:7.2.1
+    container_name: init-kafka
+    depends_on:
+      - kafka
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        kafka-topics --bootstrap-server kafka:29092 --list
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic email-topic --partitions 1 --replication-factor 1
+
+  seq:
+    image: datalust/seq
+    container_name: seq
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+
   fc.auth.webapi:
     container_name: fc_auth_webapi
     image: ${DOCKER_REGISTRY-}fcauthwebapi
@@ -9,11 +54,14 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - Serilog__WriteTo__0__Name=Seq
+      - Serilog__WriteTo__0__Args__serverUrl=http://seq:5341
     ports:
       - "8080:8080"
       - "8081:8081"
     depends_on:
       - fc.auth.postgres
+      - seq
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
@@ -27,4 +75,20 @@ services:
       - POSTGRES_PASSWORD=db@password
     ports:
       - "5432:5432"
+    restart: unless-stopped
+
+  fc.messaging.emailservice:
+    container_name: fc_emailservice
+    image: fc.emailservice
+    build:
+      context: .
+      dockerfile: services/messaging/FC.Messaging.EmailService/Dockerfile
+    depends_on:
+      - kafka
+      - seq
+      - init-kafka
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - Serilog__WriteTo__0__Name=Seq
+      - Serilog__WriteTo__0__Args__serverUrl=http://seq:5341
     restart: unless-stopped

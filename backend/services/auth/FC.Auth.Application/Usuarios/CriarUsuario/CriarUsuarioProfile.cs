@@ -14,7 +14,8 @@ namespace FC.Auth.Application.Usuarios.CriarUsuario
                 .ForMember(dest => dest.Ativo, opt => opt.Ignore())
                 .ForMember(dest => dest.Endereco, opt => opt.Ignore())
                 .ForMember(dest => dest.Telefone, opt => opt.Ignore())
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.EmailConfirmado, opt => opt.Ignore());
         }
     }
 }

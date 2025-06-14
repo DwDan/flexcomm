@@ -4,12 +4,13 @@ using Microsoft.Extensions.Localization;
 
 namespace FC.Auth.WebAPI.Middlewares
 {
-    public class LocalizedValidationExceptionMiddleware : ValidationExceptionMiddleware
+    public class LocalizedValidationExceptionMiddleware : ValidationExceptionLoggedMiddleware
     {
         public LocalizedValidationExceptionMiddleware(
             RequestDelegate next,
+            ILogger<ValidationExceptionLoggedMiddleware> logger,
             IStringLocalizer<Messages> localizer)
-            : base(next, errorCode => localizer[errorCode])
+            : base(next, logger, errorCode => localizer[errorCode])
         {
         }
     }
