@@ -79,14 +79,14 @@ namespace FC.Auth.Domain.Entities
         {
             Ativo = false;
 
-            AdicionarEventoDominio(new UsuarioInativoEvent(Id, NomeCompleto.PrimeiroNome, Email));
+            AdicionarEventoDominio(new UsuarioInativadoEvent(Id, NomeCompleto.PrimeiroNome, Email));
         }
 
         public void MarcarComoAtivo()
         {
             Ativo = true;
 
-            AdicionarEventoDominio(new UsuarioAtivoEvent(Id, NomeCompleto.PrimeiroNome, Email));
+            AdicionarEventoDominio(new UsuarioAtivadoEvent(Id, NomeCompleto.PrimeiroNome, Email));
         }
     }
 }

@@ -9,10 +9,7 @@ namespace FC.Auth.Unit.Tests.Application
         public void AtivarUsuarioCommand_DeveValidar_ComSucesso()
         {
             // Arrange
-            var command = new AtivarUsuarioCommand()
-            {
-                Id = Guid.NewGuid(),
-            };
+            var command = new AtivarUsuarioCommand(Guid.NewGuid());
 
             // Act
             var result = new AtivarUsuarioCommandHandlerValidator().Validate(command);
@@ -27,10 +24,7 @@ namespace FC.Auth.Unit.Tests.Application
         public void AtivarUsuarioCommand_DeveValidar_ComFalhas()
         {
             // Arrange
-            var command = new AtivarUsuarioCommand()
-            {
-                Id = Guid.Empty
-            };
+            var command = new AtivarUsuarioCommand(Guid.Empty);
 
             // Act
             var result = new AtivarUsuarioCommandHandlerValidator().Validate(command);

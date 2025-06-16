@@ -172,7 +172,7 @@ namespace FC.Auth.Unit.Tests.Domain
             // Assert
             Assert.False(usuario.Ativo);
 
-            var evento = usuario.ObterEventosDominio().OfType<UsuarioInativoEvent>().FirstOrDefault();
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioInativadoEvent>().FirstOrDefault();
             Assert.NotNull(evento);
             Assert.Equal(usuario.Id, evento.UsuarioId);
             Assert.Equal(usuario.Email, evento.Email);
@@ -191,7 +191,7 @@ namespace FC.Auth.Unit.Tests.Domain
             // Assert
             Assert.True(usuario.Ativo);
 
-            var evento = usuario.ObterEventosDominio().OfType<UsuarioAtivoEvent>().FirstOrDefault();
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioAtivadoEvent>().FirstOrDefault();
             Assert.NotNull(evento);
             Assert.Equal(usuario.Id, evento.UsuarioId);
             Assert.Equal(usuario.Email, evento.Email);
