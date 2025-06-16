@@ -74,5 +74,19 @@ namespace FC.Auth.Domain.Entities
         {
             AdicionarEventoDominio(new UsuarioAlteradoEvent(Id, NomeCompleto.PrimeiroNome, Email));
         }
+
+        public void MarcarComoInativo()
+        {
+            Ativo = false;
+
+            AdicionarEventoDominio(new UsuarioInativoEvent(Id, NomeCompleto.PrimeiroNome, Email));
+        }
+
+        public void MarcarComoAtivo()
+        {
+            Ativo = true;
+
+            AdicionarEventoDominio(new UsuarioAtivoEvent(Id, NomeCompleto.PrimeiroNome, Email));
+        }
     }
 }
