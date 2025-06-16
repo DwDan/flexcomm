@@ -446,5 +446,23 @@ namespace FC.Auth.WebAPI.Resources {
                 return ResourceManager.GetString("Login.SenhaObrigatoria", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não é possível realizar login, usuário inativo..
+        /// </summary>
+        public static string Login_UsuarioInativo {
+            get {
+                return ResourceManager.GetString("Login.UsuarioInativo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi possível encontrar usuário com o email informado..
+        /// </summary>
+        public static string Login_UsuarioInvalido {
+            get {
+                return ResourceManager.GetString("Login.UsuarioInvalido", resourceCulture);
+            }
+        }
     }
 }

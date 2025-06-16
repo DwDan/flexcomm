@@ -246,4 +246,10 @@
   <data name="InativarUsuario.IdInvalido" xml:space="preserve">
     <value>O identificação do usuário é obrigatorio.</value>
   </data>
+  <data name="Login.UsuarioInvalido" xml:space="preserve">
+    <value>Não foi possível encontrar usuário com o email informado.</value>
+  </data>
+  <data name="Login.UsuarioInativo" xml:space="preserve">
+    <value>Não é possível realizar login, usuário inativo.</value>
+  </data>
 </root>

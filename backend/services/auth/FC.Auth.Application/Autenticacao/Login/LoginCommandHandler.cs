@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FC.Auth.Domain.Messaging.Events;
 using FC.Auth.Domain.Repositories;
+using FC.BuildingBlocks.Core.Exception;
 using FC.BuildingBlocks.Domain;
 using FC.BuildingBlocks.Domain.Security;
 using MediatR;
@@ -31,8 +32,14 @@ namespace FC.Auth.Application.Autenticacao.Login
         {
             var user = await _repositorio.ObterPorEmailAsync(request.Email, cancellationToken);
 
-            if (user == null || !_passwordHasher.Verify(request.Senha, user.SenhaHash))
-                throw new InvalidCredentialsException("Login.CredenciaisInvalidas");
+            if(user is null)
+                throw new NotFoundException(Login_UsuarioInvalido);
+
+            if(!user.Ativo)
+                throw new BusinessException(Login_UsuarioInativo);
+
+            if (!_passwordHasher.Verify(request.Senha, user.SenhaHash))
+                throw new InvalidCredentialsException(Login_CredenciaisInvalidas);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
@@ -44,5 +51,9 @@ namespace FC.Auth.Application.Autenticacao.Login
                 Email = user.Email,
             };
         }
+
+        public static string Login_CredenciaisInvalidas = "Login.CredenciaisInvalidas";
+        public static string Login_UsuarioInvalido = "Login.UsuarioInvalido";
+        public static string Login_UsuarioInativo = "Login.UsuarioInativo";
     }
 }
