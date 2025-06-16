@@ -214,6 +214,24 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O identificador do usuário é obrigatório..
+        /// </summary>
+        public static string AtivarUsuario_IdInvalido {
+            get {
+                return ResourceManager.GetString("AtivarUsuario.IdInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi encontrado usuário para realizar ativação..
+        /// </summary>
+        public static string AtivarUsuario_UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("AtivarUsuario.UsuarioNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token possui credenciais inválidas..
         /// </summary>
         public static string ConfirmacaoEmail_ClaimsInvalidas {
@@ -385,6 +403,24 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O identificação do usuário é obrigatorio..
+        /// </summary>
+        public static string InativarUsuario_IdInvalido {
+            get {
+                return ResourceManager.GetString("InativarUsuario.IdInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi encontrado usuário para realizar inativação..
+        /// </summary>
+        public static string InativarUsuario_UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("InativarUsuario.UsuarioNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Credencial inválida..
         /// </summary>
         public static string Login_CredenciaisInvalidas {
@@ -408,6 +444,24 @@ namespace FC.Auth.WebAPI.Resources {
         public static string Login_SenhaObrigatoria {
             get {
                 return ResourceManager.GetString("Login.SenhaObrigatoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não é possível realizar login, usuário inativo..
+        /// </summary>
+        public static string Login_UsuarioInativo {
+            get {
+                return ResourceManager.GetString("Login.UsuarioInativo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi possível encontrar usuário com o email informado..
+        /// </summary>
+        public static string Login_UsuarioInvalido {
+            get {
+                return ResourceManager.GetString("Login.UsuarioInvalido", resourceCulture);
             }
         }
     }

@@ -109,7 +109,6 @@ namespace FC.Auth.Unit.Tests.Domain
             Assert.Contains(UsuarioAlteracaoValidation.AlterarUsuario_NumeroTelefoneInvalido, result.Errors.Select(c => c.ErrorCode));
         }
 
-
         [Fact(DisplayName = "Deve ser possível confirmar email com sucesso")]
         [Trait("Autenticação", "UsuarioEntity")]
         public void ConfirmacaoEmail_DeveRealizarComSucesso()
@@ -157,6 +156,45 @@ namespace FC.Auth.Unit.Tests.Domain
             Assert.Equal(usuario.Id, evento.Id);
             Assert.Equal(usuario.Email, evento.Email);
             Assert.Equal(usuario.NomeCompleto.PrimeiroNome, evento.Nome);
+        }
+
+
+        [Fact(DisplayName = "Deve ser possível inativar usuario com sucesso")]
+        [Trait("Autenticação", "UsuarioEntity")]
+        public void InativacaoUsuario_DeveRealizarComSucesso()
+        {
+            // Arrange
+            var usuario = new Usuario("João", "joao@teste.com");
+
+            // Act
+            usuario.MarcarComoInativo();
+
+            // Assert
+            Assert.False(usuario.Ativo);
+
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioInativadoEvent>().FirstOrDefault();
+            Assert.NotNull(evento);
+            Assert.Equal(usuario.Id, evento.UsuarioId);
+            Assert.Equal(usuario.Email, evento.Email);
+        }
+
+        [Fact(DisplayName = "Deve ser possível ativar usuario com sucesso")]
+        [Trait("Autenticação", "UsuarioEntity")]
+        public void AtivacaoUsuario_DeveRealizarComSucesso()
+        {
+            // Arrange
+            var usuario = new Usuario("João", "joao@teste.com");
+
+            // Act
+            usuario.MarcarComoAtivo();
+
+            // Assert
+            Assert.True(usuario.Ativo);
+
+            var evento = usuario.ObterEventosDominio().OfType<UsuarioAtivadoEvent>().FirstOrDefault();
+            Assert.NotNull(evento);
+            Assert.Equal(usuario.Id, evento.UsuarioId);
+            Assert.Equal(usuario.Email, evento.Email);
         }
     }
 }
