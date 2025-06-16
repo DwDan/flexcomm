@@ -214,6 +214,24 @@ namespace FC.Auth.WebAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O identificador do usuário é obrigatório..
+        /// </summary>
+        public static string AtivarUsuario_IdInvalido {
+            get {
+                return ResourceManager.GetString("AtivarUsuario.IdInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi encontrado usuário para realizar ativação..
+        /// </summary>
+        public static string AtivarUsuario_UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("AtivarUsuario.UsuarioNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token possui credenciais inválidas..
         /// </summary>
         public static string ConfirmacaoEmail_ClaimsInvalidas {
@@ -381,6 +399,24 @@ namespace FC.Auth.WebAPI.Resources {
         public static string Error_ValidationFailed {
             get {
                 return ResourceManager.GetString("Error.ValidationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O identificação do usuário é obrigatorio..
+        /// </summary>
+        public static string InativarUsuario_IdInvalido {
+            get {
+                return ResourceManager.GetString("InativarUsuario.IdInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi encontrado usuário para realizar inativação..
+        /// </summary>
+        public static string InativarUsuario_UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("InativarUsuario.UsuarioNaoEncontrado", resourceCulture);
             }
         }
         

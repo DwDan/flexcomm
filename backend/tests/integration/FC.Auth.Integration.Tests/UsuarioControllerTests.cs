@@ -197,5 +197,35 @@ namespace FC.Auth.Integration.Tests
             Assert.True(getResponse.IsSuccessStatusCode);
             Assert.True(_fixture.EmailSender.FoiExecutado, "Handler de e-mail não foi executado a tempo.");
         }
+
+        [Fact(DisplayName = "Ativar usuario deve executar com sucesso")]
+        [Trait("Autenticação", "UsuarioController")]
+        public async void AtivarUsuario_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var usuario = await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
+
+            // Act 
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"api/usuario/{usuario.Id}/ativar");
+            var patchResponse = await _client.SendAsync(request);
+
+            // Assert
+            Assert.True(patchResponse.IsSuccessStatusCode);
+        }
+
+        [Fact(DisplayName = "Inativar usuario deve executar com sucesso")]
+        [Trait("Autenticação", "UsuarioController")]
+        public async void InativarUsuario_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var usuario = await _fixture.UsuarioTestHelper.RealizarAutenticacaoAsync();
+
+            // Act 
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"api/usuario/{usuario.Id}/inativar");
+            var patchResponse = await _client.SendAsync(request);
+
+            // Assert
+            Assert.True(patchResponse.IsSuccessStatusCode);
+        }
     }
 }

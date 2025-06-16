@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FC.Auth.Application.Usuarios.AlterarUsuario;
+using FC.Auth.Application.Usuarios.AtivarUsuario;
 using FC.Auth.Application.Usuarios.ConfirmarEmail;
 using FC.Auth.Application.Usuarios.CriarUsuario;
+using FC.Auth.Application.Usuarios.InativarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.AlterarUsuario;
 using FC.Auth.WebAPI.Feature.Usuario.CriarUsuario;
 using FC.BuildingBlocks.WebAPI;
@@ -49,6 +51,28 @@ namespace FC.Auth.WebAPI.Feature.Usuario
         public async Task<IActionResult> EmailConfirmation([FromQuery] string token, CancellationToken cancellationToken)
         {
             var command = new ConfirmarEmailUsuarioCommand(token);
+
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPatch("{id}/ativar")]
+        [Authorize]
+        public async Task<IActionResult> Activate([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var command = new AtivarUsuarioCommand(id);
+
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPatch("{id}/inativar")]
+        [Authorize]
+        public async Task<IActionResult> Inactivate([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var command = new InativarUsuarioCommand(id);
 
             var response = await _mediator.Send(command, cancellationToken);
 

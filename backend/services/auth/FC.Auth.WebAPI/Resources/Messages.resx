@@ -234,4 +234,16 @@
   <data name="CriarUsuario.EmailDuplicado" xml:space="preserve">
     <value>Usuário com o email informado já existente.</value>
   </data>
+  <data name="AtivarUsuario.UsuarioNaoEncontrado" xml:space="preserve">
+    <value>Não foi encontrado usuário para realizar ativação.</value>
+  </data>
+  <data name="AtivarUsuario.IdInvalido" xml:space="preserve">
+    <value>O identificador do usuário é obrigatório.</value>
+  </data>
+  <data name="InativarUsuario.UsuarioNaoEncontrado" xml:space="preserve">
+    <value>Não foi encontrado usuário para realizar inativação.</value>
+  </data>
+  <data name="InativarUsuario.IdInvalido" xml:space="preserve">
+    <value>O identificação do usuário é obrigatorio.</value>
+  </data>
 </root>
