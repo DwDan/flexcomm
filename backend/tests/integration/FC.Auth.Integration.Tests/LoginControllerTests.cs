@@ -68,7 +68,7 @@ namespace FC.Auth.Integration.Tests
             });
 
             Assert.NotNull(result);
-            Assert.Contains(Messages.Login_CredenciaisInvalidas, result.Message);
+            Assert.Contains(Messages.Login_UsuarioInvalido, result.Message);
         }
 
         [Fact(DisplayName = "Login com credencial válida deve retornar status sucesso")]
